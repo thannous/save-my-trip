@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-var bodyParser =    require('body-parser');
+
 /*var logger =        require('../logger');*/
 
 //route dependence
@@ -17,34 +17,23 @@ var proxiedRequest = request.defaults({'proxy':'http://FLX_PILOTAGE:FLX_PILOTAGE
  **/
 
 module.exports = function airfranceApi(app) {
-  app.use(bodyParser.urlencoded({extended: true}));
-  app.use(bodyParser.json());
-  // log for dev debbug (TODO use morgan)
-  app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
 
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    next();
-  });
-
+  function flightstatuses(subject) {
+    console.log("subject",subject)
+    proxiedRequest.get('http://fox.klm.com/fox/json/flightstatuses?originAirportCode=AMS&destinationAirportCode=CDG'
+      , function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          subject.next(body);
+        }
+      });
+  }
 
   /**
-   * configure express router for api airfrance
+   * configure express router for direct api airfrance
    */
-  app.get('/api/airfrance/', function (req, res) {
-    console.log('/api/airfrance/');
-    proxiedRequest.get('http://fox.klm.com/fox/json/flightstatuses?originAirportCode=AMS&destinationAirportCode=CDG'
-    , function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var json = JSON.stringify(body)
-          res.json(json);
-      }
-    });
-  });
+
   app.use('/api/airfrance', airfrance);
+  return {
+    flightstatuses : flightstatuses
+  }
 };
