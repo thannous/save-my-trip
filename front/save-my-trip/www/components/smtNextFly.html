@@ -1,0 +1,13 @@
+<div>
+    Quel est le prochain vol que vous souhaitez prendre ?
+</div>
+
+<hr/>
+
+<div ng-if="$ctrl.planes.length > 0" class="plane-list">
+  <div ng-repeat="plane in $ctrl.planes track by $index" ng-click="$ctrl.getPlaneDetails($index)"class="plane-info">
+    <span>{{ plane.departure.location }} {{ plane.departure.hours }}</span>
+    <span></span>
+    <span>{{ plane.arrival.location }} {{ plane.arrival.hours }}</span>
+  </div>
+</div>

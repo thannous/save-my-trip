@@ -1,0 +1,13 @@
+<div>
+Scanner votre ticket
+<button class="button" ng-click="$ctrl.scanBarcode()">SCAN</button>
+</div>
+
+<hr/>
+
+<div>
+<input type="text" placeholder="N° de réservation" ng-model="$ctrl.reservationNumber"/>
+
+  <button class="button" ng-click="$ctrl.validateReservationNumber($ctrl.reservationNumber)">VALIDER</button>
+</div>
+
