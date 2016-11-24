@@ -4,13 +4,13 @@ var Rx = require('rxjs');
 
 var Airfrance = require('./airfrance-api/airfrance-api');
 var Uber = require('./uber-api/uber-api');
+var Recast = require('./recast-api/recast-api');
 
 
-
-module.exports = function(app){
+module.exports = app => {
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
-  app.use(function (req, res, next) {
+  app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -23,13 +23,7 @@ module.exports = function(app){
   });
 
   var airfrance = new Airfrance({
-    client_id: '-aQnU5AFmYDO3UmVwqZtinPmN0GduypA',
-    client_secret: '9hphRFJOyLn2wZm39NZlUHu5_8TFYsLgT6tQXEA9',
     server_token: 'opkoUm_nA48pi_O6VIh-H89YXNVPoilek4d7fILD',
-    redirect_uri: 'https://facebook.com',
-    name: 'Save my trip',
-    language: 'en_US', // optional, defaults to en_US
-    sandbox: true // optional, defaults to false
   });
 
   var uber = new Uber({
@@ -42,30 +36,55 @@ module.exports = function(app){
     sandbox: true // optional, defaults to false
   });
 
-  app.get('/api/flightstatuses/', function (req, res) {
-    console.log('GET','/api/flightstatuses/');
-    var subject = new Rx.Subject();
+  var recast = new Recast({
+    token : '4ac2299f684147685cf9d17d77acae4e',
+    language : 'fr'
+  });
 
-    subject.subscribe(function(data){
-      res.send(data);
+
+
+  //
+
+
+  /* AIRFRANCE */
+
+  app.get('/api/airfrance/flightstatuses/', (request, response) =>  {
+    console.log('GET','/api/flightstatuses/');
+    var getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.send(data);
     }, function(err){
-      res.send('Error: ' + err);
+      response.send('Error: ' + err);
     }, function(){
       console.log("COMPLETED");
     });
-    airfrance.flightstatuses(subject);
+    airfrance.flightstatuses(getPromise);
 
   });
 
 
+  /* RECAST */
+  app.post('/api/recast/textConverse', (request, response) => {
+    var getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.json(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+     recast.textConverse(request.body.text, getPromise);
 
-  app.get('/api/uber/authorization', function(request, response) {
+  });
+
+  /* UBER */
+
+  app.get('/api/uber/authorization', (request, response) => {
     var url = uber.getAuthorizeUrl(['history','profile', 'request', 'places']);
-    console.log("url",url);
     response.redirect(url);
   });
 
-  app.get('/api/uber/callback', function(request, response) {
+  app.get('/api/uber/callback', (request, response) =>  {
     uber.authorization({
       authorization_code: request.query.code
     }, function(err, access_token, refresh_token) {

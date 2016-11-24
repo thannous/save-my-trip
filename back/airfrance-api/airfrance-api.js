@@ -28,18 +28,15 @@ function Airfrance(options) {
 
     this.access_token = options.access_token;
     this.refresh_token = options.refresh_token;
-
-
 };
 
 module.exports = Airfrance;
 
-Airfrance.prototype.flightstatuses = function(subject) {
-  console.log("subject",subject);
-    request.get('http://fox.klm.com/fox/json/flightstatuses?originAirportCode=AMS&destinationAirportCode=CDG'
-      , function (error, response, body) {
+Airfrance.prototype.flightstatuses = function(promise) {
+    proxiedRequest.get('http://fox.klm.com/fox/json/flightstatuses?originAirportCode=AMS&destinationAirportCode=CDG'
+      ,  (error, response, body) => {
         if (!error && response.statusCode == 200) {
-          subject.next(body);
+            promise.next(body);
         }
       });
 };
