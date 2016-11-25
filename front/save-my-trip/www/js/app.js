@@ -52,9 +52,6 @@ angular.module('saveMyTrip', ['ionic', 'starter.controllers', 'ngCordova'])
     template: '<smt-next-fly></smt-next-fly>'
   })
 
-
-
-
   .state('app.search', {
     url: '/search',
     views: {
