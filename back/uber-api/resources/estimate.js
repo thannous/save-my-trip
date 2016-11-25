@@ -8,7 +8,8 @@ module.exports = Estimates;
 Estimates.prototype.getPriceForRoute = function getPriceForRoute(startLat,
                                                                  startLon, endLat, endLon, seats, callback) {
   // seats is optional
-  if (typeof seats === 'function') {
+  console.log(typeof seats)
+  if (typeof seats === 'function' || typeof seats === 'object') {
     callback = seats;
     // set to the default of 2 seats
     seats = 2;
@@ -25,7 +26,7 @@ Estimates.prototype.getPriceForRoute = function getPriceForRoute(startLat,
   if (!this._uber.isNumeric(seats)) {
     seats = 2;
   }
-
+  console.log("callback",callback)
   return this._uber.get({
     url: this.path + '/price',
     params: {
@@ -40,7 +41,8 @@ Estimates.prototype.getPriceForRoute = function getPriceForRoute(startLat,
 };
 
 Estimates.prototype.getTimeForLocation = function getTimeForLocation(lat, lon, id, callback) {
-  if (typeof id === 'function') {
+  if (typeof id === 'function' || typeof id === 'object') {
+    console.log("callback",id)
     callback = id;
     id = undefined;
   }
@@ -58,7 +60,7 @@ Estimates.prototype.getTimeForLocation = function getTimeForLocation(lat, lon, i
     start_latitude: lat,
     start_longitude: lon
   };
-
+  console.log("callback",callback)
   return this._uber.get({
     url: this.path + '/time',
     params: par,

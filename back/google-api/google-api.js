@@ -1,10 +1,12 @@
 var request = require('request');
+var proxiedRequest = request.defaults({'proxy':'http://FLX_PILOTAGE:FLX_PILOTAGE@192.168.77.12:8080'});
 
 var resources = {
+    direction : require('./resources/direction'),
     NearBySearch: require('./resources/nearBySearch')
 };
 
-function GooglePlaces(options) {
+function Google(options) {
   
     this.defaults = {
         apiKey: options.apiKey,
@@ -18,7 +20,7 @@ function GooglePlaces(options) {
     this._initResources();
 }
 
-GooglePlaces.prototype._initResources = function() {
+Google.prototype._initResources = function() {
     for (var name in this.resources) {
         if ({}.hasOwnProperty.call(this.resources, name)) {
             this[name.toLowerCase()] = new resources[name](this);
@@ -26,10 +28,10 @@ GooglePlaces.prototype._initResources = function() {
     }
 };
 
-GooglePlaces.prototype.get = function get(options, promise) {
+Google.prototype.get = function get(options, promise) {
 
     console.log(options);
-    request.get({
+    proxiedRequest.get({
         url: "https://maps.googleapis.com" + options.url,
         json: true
     }, function(err, data, res) {
@@ -42,5 +44,5 @@ GooglePlaces.prototype.get = function get(options, promise) {
 
     return this;
 };
-module.exports  = GooglePlaces;
+module.exports  = Google;
 

@@ -5,7 +5,7 @@ const Rx = require('rxjs');
 const Airfrance = require('./airfrance-api/airfrance-api');
 const Uber = require('./uber-api/uber-api');
 const Recast = require('./recast-api/recast-api');
-const GooglePlace = require('./google-place-api/google-place-api');
+const Google = require('./google-api/google-api');
 const Skyscanner =  require('./skyscanner-api/skyscanner-api');
 const Citymapper = require('./citymapper-api/citymapper-api');
 
@@ -43,7 +43,7 @@ module.exports = app => {
     language : 'fr'
   });
 
-  const googplePlace = new GooglePlace({
+  const google = new Google({
     apiKey: "AIzaSyDj5Ws6SVhvpGQdczV3bktH2kQVNHJ_U80"
   });
 
@@ -106,6 +106,23 @@ module.exports = app => {
   });
 
   app.get('/api/uber/price',(request, response) => {
+    console.log('api/uber/price');
+    let getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.send(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+    let startlat = "48.995417";
+    let startlng = "2.533997";
+    let endlat = "48.975919";
+    let endlng = "2.500974";
+    uber.estimates.getPriceForRoute(startlat,startlng,endlat, endlng, getPromise);
+  });
+
+  app.get('/api/uber/time',(request, response) => {
     console.log('api/uber/time');
     let getPromise = new Rx.Subject();
     getPromise.subscribe(function(data){
@@ -115,12 +132,14 @@ module.exports = app => {
     }, function(){
       console.log("COMPLETED");
     });
-    uber.estimates.getPriceForRoute('lat','lng','', getPromise);
+    let startlat = "48.995417";
+    let startlng = "2.533997";
+    uber.estimates.getTimeForLocation(startlat,startlng,getPromise);
   });
 
   /* GOOGLEPLACE */
 
-  app.get('/api/googleplace/nearbysearch/hotel', (request, response) => {
+  app.get('/api/google/nearbysearch/hotel', (request, response) => {
     let getPromise = new Rx.Subject();
     getPromise.subscribe(function(data){
       response.json(data);
@@ -129,7 +148,20 @@ module.exports = app => {
     }, function(){
       console.log("COMPLETED");
     });
-    googplePlace.nearbysearch.getHotel({}, getPromise);
+    google.nearbysearch.getHotel({}, getPromise);
+  });
+
+
+  app.get('/api/google/direction/getdirection', (request, response) => {
+    let getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.json(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+    google.direction.getDirection({}, getPromise);
   });
 
   /* skyscanner */

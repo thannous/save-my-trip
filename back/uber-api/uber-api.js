@@ -1,6 +1,8 @@
 var OAuth = require('oauth');
 var util = require('util');
 var request = require('request');
+var proxiedRequest = request.defaults({'proxy':'http://FLX_PILOTAGE:FLX_PILOTAGE@192.168.77.12:8080'});
+
 var qs = require('querystring');
 
 var resources = {
@@ -97,7 +99,29 @@ Uber.prototype.authorization = function authorization(options, callback) {
     return self;
 };
 
-Uber.prototype.get = function get(options, callback) {
+Uber.prototype.isNumeric = function isNumeric(input) {
+    return (!input || isNaN(input)) ? false : true;
+};
+
+Uber.prototype.createAccessHeader = function createAccessHeader(server_token) {
+    var access_type;
+
+    if (server_token) {
+        access_type = 'Token ' + this.defaults.server_token;
+    } else {
+        if (this.access_token) {
+            access_type = 'Bearer ' + this.access_token;
+        }
+    }
+
+    return access_type;
+};
+
+Uber.prototype.getRequestURL = function getRequestURL(version, url) {
+    return this.defaults.base_url + (version ? version : 'v1') + '/' + url;
+};
+
+Uber.prototype.get = function get(options, promise) {
     var access_type = this.createAccessHeader(options.server_token);
     if (!access_type) {
         return callback(new Error('Invalid access token'), 'A valid access token is required for this request');
@@ -109,8 +133,7 @@ Uber.prototype.get = function get(options, callback) {
     if (options.params) {
         url += '?' + qs.stringify(options.params);
     }
-
-    request.get({
+    proxiedRequest.get({
         url: url,
         json: true,
         headers: {
@@ -120,9 +143,9 @@ Uber.prototype.get = function get(options, callback) {
         }
     }, function(err, data, res) {
         if (err || data.statusCode >= 400) {
-            return callback((err ? err : data), res);
+            promise.error(err)
         } else {
-            return callback(null, res);
+            promise.next(res);
         }
     });
 

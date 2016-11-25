@@ -35,6 +35,7 @@ Citymapper.prototype.get = function get(options, promise) {
     if (err || data.statusCode >= 400) {
       promise.error(err)
     } else {
+      console.log('array',Array.of(res).map(d => d.travel_time_minutes + 3));
       promise.next(res);
     }
   });
