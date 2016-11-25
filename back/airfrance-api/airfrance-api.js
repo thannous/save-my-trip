@@ -33,10 +33,19 @@ function Airfrance(options) {
 module.exports = Airfrance;
 
 Airfrance.prototype.flightstatuses = function(promise) {
-    proxiedRequest.get('http://fox.klm.com/fox/json/flightstatuses?originAirportCode=AMS&destinationAirportCode=CDG'
+    request.get('http://fox.klm.com/fox/json/flightstatuses?originAirportCode=AMS&destinationAirportCode=CDG'
       ,  (error, response, body) => {
         if (!error && response.statusCode == 200) {
             promise.next(body);
         }
       });
+};
+
+Airfrance.prototype.flights = function(promise) {
+    request.get('https://api.klm.com/flights?origin=CDG&destination=NCE'
+        ,  (error, response, body) => {
+            if (!error && response.statusCode == 200) {
+                promise.next(body);
+            }
+        });
 };

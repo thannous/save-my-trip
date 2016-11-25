@@ -68,6 +68,18 @@ module.exports = app => {
 
   });
 
+  app.get('/api/airfrance/flights/', (request, response) =>  {
+      console.log('GET','/api/airfrance/flights/');
+      var getPromise = new Rx.Subject();
+      getPromise.subscribe(function(data){
+          response.send(data);
+      }, function(err){
+          response.send('Error: ' + err);
+      }, function(){
+          console.log("COMPLETED");
+      });
+      airfrance.flights(getPromise);
+  });
 
   /* RECAST */
   app.post('/api/recast/textConverse', (request, response) => {
