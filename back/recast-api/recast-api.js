@@ -37,4 +37,4 @@ Recastai.prototype.textConverse = function (text, promise) {
   }).catch(err => {
     console.log(err)
   })
-}
+};

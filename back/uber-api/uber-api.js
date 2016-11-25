@@ -4,11 +4,13 @@ var request = require('request');
 var qs = require('querystring');
 
 var resources = {
-    User: require('./resources/User')
+    User: require('./resources/user'),
+    Estimates : require('./resources/estimate'),
 };
 
 function Uber(options) {
     this.sandbox = options.sandbox ? options.sandbox : false;
+    this.jeton = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOltdLCJzdWIiOiJkMTY2MDI4Yy03NzVjLTQzNTQtYWYyYy04YzM4MjhjYmY3ODEiLCJpc3MiOiJ1YmVyLXVzMSIsImp0aSI6IjczMjRmZTM2LWZlNGYtNDUyNy1hYTY2LWNkMDIyNTI5MTAzMSIsImV4cCI6MTQ4MjY3Mzk0MCwiaWF0IjoxNDgwMDgxOTQwLCJ1YWN0IjoiQWg4WDIwNnd4TEpDNE5qSTB3WWdJemt1a1o5YlpoIiwibmJmIjoxNDgwMDgxODUwLCJhdWQiOiItYVFuVTVBRm1ZRE8zVW1Wd3FadGluUG1OMEdkdXlwQSJ9.FC8fNL3rIlU_DIwb7mEA0idcbkfEEypqGXT8tU_1PRv1Dr17d__KqqdDd6tkTg_uX-KBH28M0VwhAEb7RBZnVkZ7gptmvtilr1wqc0GG29m26mp9wiXW4ONnLBgzZonjtVPNnfVX0gzI0aGLBqjF-fEZrjWSnTD4n7Msrhc0nXJ6GIn4mSohtEpNiZd44FjrAACdr3y_hx-b9Afk1k_0yzSoART6TXVGeYGv29KjKZzvr9EYQ6g8S6g_1-543qJFJBLxr6UWWBX6w6GG38-qLiA_g9t2pQFA5Fvt-9E7NJEcqE-SwLE9-HSzKP0EpIkDmfUmQsdqBVHJJPEOS-jfeA";
     this.defaults = {
         client_id: options.client_id,
         client_secret: options.client_secret,

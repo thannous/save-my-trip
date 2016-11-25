@@ -7,6 +7,7 @@ const Uber = require('./uber-api/uber-api');
 const Recast = require('./recast-api/recast-api');
 const GooglePlace = require('./google-place-api/google-place-api');
 const Skyscanner =  require('./skyscanner-api/skyscanner-api');
+const Citymapper = require('./citymapper-api/citymapper-api');
 
 module.exports = app => {
   app.use(bodyParser.urlencoded({extended: true}));
@@ -50,6 +51,7 @@ module.exports = app => {
     apiKey: "ch374033574984796702425394185238"
   });
 
+  const citymapper = new Citymapper();
   /* AIRFRANCE */
 
   app.get('/api/airfrance/flightstatuses/', (request, response) =>  {
@@ -103,6 +105,18 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/uber/price',(request, response) => {
+    console.log('api/uber/time');
+    let getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.send(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+    uber.estimates.getPriceForRoute('lat','lng','', getPromise);
+  });
 
   /* GOOGLEPLACE */
 
@@ -158,7 +172,23 @@ module.exports = app => {
       guests: 1,
       rooms: 1
     }, getPromise);
-  })
+  });
+
+  app.get('/api/citymapper/traveltime',(request, response) => {
+    console.log('api/citymapper/traveltime');
+    let getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.send(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+    citymapper.traveltime({}, getPromise);
+  });
+
+
+  // "48.995417, 2.533997"
 };
 
 

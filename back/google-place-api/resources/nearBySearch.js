@@ -1,4 +1,4 @@
-var qs= require("querystring");
+var qs = require("querystring");
 
 function NearBySearch(googleplace) {
     this._googleplace = googleplace;
