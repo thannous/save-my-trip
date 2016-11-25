@@ -1,6 +1,7 @@
 var OAuth = require('oauth');
 var util = require('util');
-
+var request = require('request');
+var qs = require('querystring');
 
 var resources = {
     User: require('./resources/User')
@@ -35,7 +36,7 @@ function Uber(options) {
     this._initResources();
 }
 
-module.exports = Uber;
+
 
 Uber.prototype._initResources = function() {
     for (var name in this.resources) {
@@ -125,3 +126,6 @@ Uber.prototype.get = function get(options, callback) {
 
     return this;
 };
+
+
+module.exports = Uber;

@@ -5,7 +5,7 @@ var Rx = require('rxjs');
 var Airfrance = require('./airfrance-api/airfrance-api');
 var Uber = require('./uber-api/uber-api');
 var Recast = require('./recast-api/recast-api');
-
+var GooglePlace = require('./google-place-api/google-place-api');
 
 module.exports = app => {
   app.use(bodyParser.urlencoded({extended: true}));
@@ -22,11 +22,11 @@ module.exports = app => {
     next();
   });
 
-  var airfrance = new Airfrance({
+  const airfrance = new Airfrance({
     server_token: 'opkoUm_nA48pi_O6VIh-H89YXNVPoilek4d7fILD',
   });
 
-  var uber = new Uber({
+  const uber = new Uber({
     client_id: '-aQnU5AFmYDO3UmVwqZtinPmN0GduypA',
     client_secret: '9hphRFJOyLn2wZm39NZlUHu5_8TFYsLgT6tQXEA9',
     server_token: 'opkoUm_nA48pi_O6VIh-H89YXNVPoilek4d7fILD',
@@ -36,15 +36,14 @@ module.exports = app => {
     sandbox: true // optional, defaults to false
   });
 
-  var recast = new Recast({
+  const recast = new Recast({
     token : '4ac2299f684147685cf9d17d77acae4e',
     language : 'fr'
   });
 
-
-
-  //
-
+  const googplePlace = new GooglePlace({
+    apiKey: "AIzaSyDj5Ws6SVhvpGQdczV3bktH2kQVNHJ_U80"
+  })
 
   /* AIRFRANCE */
 
@@ -65,7 +64,7 @@ module.exports = app => {
 
   /* RECAST */
   app.post('/api/recast/textConverse', (request, response) => {
-    var getPromise = new Rx.Subject();
+    let getPromise = new Rx.Subject();
     getPromise.subscribe(function(data){
       response.json(data);
     }, function(err){
@@ -87,7 +86,7 @@ module.exports = app => {
   app.get('/api/uber/callback', (request, response) =>  {
     uber.authorization({
       authorization_code: request.query.code
-    }, function(err, access_token, refresh_token) {
+    }, (err, access_token, refresh_token) => {
       if (err) {
         console.error(err);
       } else {
@@ -98,6 +97,24 @@ module.exports = app => {
       }
     });
   });
+
+
+  /* GOOGLEPLACE */
+
+  app.get('/api/googleplace/nearbysearch/hotel', (request, response) => {
+    let getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.json(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+    googplePlace.nearbysearch.getHotel({}, getPromise);
+
+  });
+
+
 };
 
 
