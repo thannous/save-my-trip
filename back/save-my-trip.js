@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-var bodyParser =    require('body-parser');
-var Rx = require('rxjs');
+const bodyParser =    require('body-parser');
+const Rx = require('rxjs');
 
-var Airfrance = require('./airfrance-api/airfrance-api');
-var Uber = require('./uber-api/uber-api');
-var Recast = require('./recast-api/recast-api');
-var GooglePlace = require('./google-place-api/google-place-api');
+const Airfrance = require('./airfrance-api/airfrance-api');
+const Uber = require('./uber-api/uber-api');
+const Recast = require('./recast-api/recast-api');
+const GooglePlace = require('./google-place-api/google-place-api');
+const Skyscanner =  require('./skyscanner-api/skyscanner-api');
 
 module.exports = app => {
   app.use(bodyParser.urlencoded({extended: true}));
@@ -43,7 +44,11 @@ module.exports = app => {
 
   const googplePlace = new GooglePlace({
     apiKey: "AIzaSyDj5Ws6SVhvpGQdczV3bktH2kQVNHJ_U80"
-  })
+  });
+
+  const skyscanner = new Skyscanner({
+    apiKey: "ch374033574984796702425394185238"
+  });
 
   /* AIRFRANCE */
 
@@ -111,10 +116,49 @@ module.exports = app => {
       console.log("COMPLETED");
     });
     googplePlace.nearbysearch.getHotel({}, getPromise);
-
   });
 
+  /* skyscanner */
 
+  app.get('/api/skyscanner/hotels/autosuggest', (request, response) => {
+    console.log('api/skyscanner/hotels/autosuggest');
+    let getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.send(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+    skyscanner.hotels.autosuggest({
+      market: "FR",
+      currency: "EUR",
+      locale: "fr-FR",
+      query: "paris"
+    }, getPromise);
+  });
+
+  app.get('/api/skyscanner/hotels/livePrices', (request, response) => {
+    console.log('api/skyscanner/hotels/autosuggest');
+    let getPromise = new Rx.Subject();
+    getPromise.subscribe(function(data){
+      response.send(data);
+    }, function(err){
+      response.send('Error: ' + err);
+    }, function(){
+      console.log("COMPLETED");
+    });
+    skyscanner.hotels.livePrices.session({
+      market: "FR",
+      currency: "EUR",
+      locale: "fr-FR",
+      entityId: "48.853,2.35-latlong",
+      checkindate: "2016-11-27",
+      checkoutdate: "2016-11-29",
+      guests: 1,
+      rooms: 1
+    }, getPromise);
+  })
 };
 
 
