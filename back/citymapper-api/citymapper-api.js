@@ -1,7 +1,6 @@
 var qs = require("querystring");
 
 var request = require('request');
-var proxiedRequest = request.defaults({'proxy': 'http://FLX_PILOTAGE:FLX_PILOTAGE@192.168.77.12:8080'});
 
 function Citymapper(options) {
   this.default = {
@@ -38,7 +37,7 @@ Citymapper.prototype.get = function get(options, promise) {
     if (err || data.statusCode >= 400) {
       promise.error(err)
     } else {
-      console.log('array',Array.of(res).map(d => d.travel_time_minutes + 3));
+      console.log('array', Array.of(res).map(d => d.travel_time_minutes + 3));
       promise.next(res);
     }
   });

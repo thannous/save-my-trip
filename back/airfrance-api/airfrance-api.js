@@ -3,8 +3,6 @@ var util = require('util');
 
 var request = require('request');
 
-var proxiedRequest = request.defaults({'proxy': 'http://FLX_PILOTAGE:FLX_PILOTAGE@192.168.77.12:8080'});
-
 function Airfrance(options) {
   this.defaults = {
     client_id: options.client_id,
@@ -42,17 +40,41 @@ Airfrance.prototype.flightstatuses = function (promise) {
 };
 
 Airfrance.prototype.flights = function (promise) {
-	var body = {
-      data: [
-        { flyNumber: '00001', departure: {location: 'Paris', hours: '10:00'}, arrival: {location: 'Marseille', hours: '12:00'}},
-        { flyNumber: '00001', departure: {location: 'Paris', hours: '12:00'}, arrival: {location: 'Marseille', hours: '13:00'}},
-        { flyNumber: '00001', departure: {location: 'Paris', hours: '14:00'}, arrival: {location: 'Marseille', hours: '15:00'}},
-        { flyNumber: '00001', departure: {location: 'Paris', hours: '16:00'}, arrival: {location: 'Marseille', hours: '17:00'}},
-        { flyNumber: '00001', departure: {location: 'Paris', hours: '17:00'}, arrival: {location: 'Marseille', hours: '18:00'}},
-        { flyNumber: '00001', departure: {location: 'Paris', hours: '18:00'}, arrival: {location: 'Marseille', hours: '19:00'}},
-      ],
-    };
-	promise.next(body);
+  var body = {
+    data: [
+      {
+        flyNumber: '00001',
+        departure: {location: 'Paris', hours: '10:00'},
+        arrival: {location: 'Marseille', hours: '12:00'}
+      },
+      {
+        flyNumber: '00001',
+        departure: {location: 'Paris', hours: '12:00'},
+        arrival: {location: 'Marseille', hours: '13:00'}
+      },
+      {
+        flyNumber: '00001',
+        departure: {location: 'Paris', hours: '14:00'},
+        arrival: {location: 'Marseille', hours: '15:00'}
+      },
+      {
+        flyNumber: '00001',
+        departure: {location: 'Paris', hours: '16:00'},
+        arrival: {location: 'Marseille', hours: '17:00'}
+      },
+      {
+        flyNumber: '00001',
+        departure: {location: 'Paris', hours: '17:00'},
+        arrival: {location: 'Marseille', hours: '18:00'}
+      },
+      {
+        flyNumber: '00001',
+        departure: {location: 'Paris', hours: '18:00'},
+        arrival: {location: 'Marseille', hours: '19:00'}
+      },
+    ],
+  };
+  promise.next(body);
 };
 
 Airfrance.prototype.user = function (bookingNumber) {
