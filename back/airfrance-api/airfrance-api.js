@@ -42,12 +42,17 @@ Airfrance.prototype.flightstatuses = function (promise) {
 };
 
 Airfrance.prototype.flights = function (promise) {
-  request.get('https://api.klm.com/flights?origin=CDG&destination=NCE'
-    , (error, response, body) => {
-      if (!error && response.statusCode == 200) {
-        promise.next(body);
-      }
-    });
+	var body = {
+      data: [
+        { flyNumber: '00001', departure: {location: 'Paris', hours: '10:00'}, arrival: {location: 'Marseille', hours: '12:00'}},
+        { flyNumber: '00001', departure: {location: 'Paris', hours: '12:00'}, arrival: {location: 'Marseille', hours: '13:00'}},
+        { flyNumber: '00001', departure: {location: 'Paris', hours: '14:00'}, arrival: {location: 'Marseille', hours: '15:00'}},
+        { flyNumber: '00001', departure: {location: 'Paris', hours: '16:00'}, arrival: {location: 'Marseille', hours: '17:00'}},
+        { flyNumber: '00001', departure: {location: 'Paris', hours: '17:00'}, arrival: {location: 'Marseille', hours: '18:00'}},
+        { flyNumber: '00001', departure: {location: 'Paris', hours: '18:00'}, arrival: {location: 'Marseille', hours: '19:00'}},
+      ],
+    };
+	promise.next(body);
 };
 
 Airfrance.prototype.user = function (bookingNumber) {
