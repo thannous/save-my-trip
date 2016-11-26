@@ -1,1 +1,32 @@
 /* Empty. Add your own CSS if you like */
+img.carded {
+  height: 250px;
+}
+
+.margin-vertical-5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.margin-vertical-none {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.border-vertical-none {
+  border-top: none;
+  border-bottom: none;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.align-center {
+  text-align: center;
+}
+
+smt-wallet-footer {
+  padding: 0;
+  width: 100%
+}

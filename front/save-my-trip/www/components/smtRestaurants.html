@@ -1,19 +1,71 @@
-<ion-view view-title="Restaurants">
-  <ion-content>
-    <h1>Restaurant</h1>
-    <div class="restaurant-question" ng-show="$ctrl.showRestaurantQuestion">
-      <div class="restaurant-message">
-        <h1>Vous avez faim ?</h1>
+<ion-view view-title="restaurants" style="height:40%; border:black 1px solid;">
+  <ion-content scroll="false">
+    <div>
+      <h1>restaurant</h1>
+      <div class="restaurant-question" ng-show="$ctrl.showRestaurantQuestion">
+        <div class="restaurant-message">
+          <h2 class="align-center">Vous avez faim ?</h2>
+        </div>
+        <div>
+          <div class="row">
+            <div class="col-50 align-center padding-horizontal">
+              <button class="button button-block button-positive" ng-click="$ctrl.confirmRestaurant()">OUI</button>
+            </div>
+            <div class="col-50 align-center padding-horizontal">
+              <button class="button button-block button-positive" ng-click="$ctrl.cancelRestaurant()">NON</button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-      <div>
-        <button class="button" ng-click="$ctrl.confirmRestaurant()">OUI</button>
-        <button class="button" ng-click="$ctrl.cancelRestaurant()">NON</button>
+      <div class="bar bar-footer">
+        <div class="row">
+          <div class="col-33 align-center padding-horizontal">
+            <button class="button button-block button-outline button-positive">top</button>
+          </div>
+          <div class="col-33 align-center padding-horizontal">
+            <button class="button button-block button-outline button-positive">hôtel</button>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-
-    <div class="restaurant-list" ng-show="$ctrl.showRestaurants">
-
     </div>
   </ion-content>
 </ion-view>
+
+<ion-view style="top:40%">
+  <ion-content>
+    <ion-list ng-if="$ctrl.restaurants.length > 0" class="restaurant-list">
+      <ion-item
+        class="margin-vertical-none border-vertical-none no-padding"
+        ng-repeat="restaurant in $ctrl.restaurants track by $index"
+        ng-click="$ctrl.getrestaurantDetails($index)">
+        <div class="card">
+          <div class="item item-image">
+            <img class="carded" ng-src="{{restaurant.imgUrl}}" smt-error-src="img/no-image.png"/>
+          </div>
+          <h2 class="padding-horizontal">{{ restaurant.label }}</h2>
+          <h3 class="dark padding-horizontal">{{ restaurant.address}}</h3>
+          <span class="item assertive">
+            <i class="icon ion-star" ng-class=" restaurant.rate >=1 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" restaurant.rate >=2 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" restaurant.rate >=3 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" restaurant.rate >=4 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" restaurant.rate >=5 ? 'energized' : 'stable' "></i>
+
+          </span>
+
+        </div>
+      </ion-item>
+
+
+    </ion-list>
+  </ion-content>
+</ion-view>
+<div class="bar bar-footer">
+  <div class="row">
+    <smt-wallet-footer money="$ctrl.userSrv.money" network-data="$ctrl.userSrv.networkData"></smt-wallet-footer>
+  </div>
+</div>
+

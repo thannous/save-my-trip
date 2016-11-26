@@ -9,7 +9,7 @@ angular.module('saveMyTrip')
 
       document.addEventListener("online", onOnline, false);
       document.addEventListener("offline", onOffline, false);
-
+      $state.go('connectUser');
       function onOnline() {
         console.log('-----------------onOnline------------------------');
         $state.go('connectUser');

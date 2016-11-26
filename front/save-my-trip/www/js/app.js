@@ -92,6 +92,15 @@ angular.module('saveMyTrip', ['ionic', 'starter.controllers', 'ngCordova'])
         },
       })
 
+      .state('app.resume', {
+        url: '/resume',
+        views: {
+          'menuContent': {
+            template: '<smt-resume></smt-resume>',
+          },
+        },
+      })
+
       .state('app.browse', {
         url: '/browse',
         views: {

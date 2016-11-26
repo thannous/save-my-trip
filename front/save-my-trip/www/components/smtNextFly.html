@@ -1,26 +1,29 @@
 <ion-view view-title="NextFly">
   <ion-content>
     <div>
+      <h1>choissir un vol </h1>
+      <div>
         Quel est le prochain vol que vous souhaitez prendre ?
+      </div>
     </div>
 
-    <hr/>
-
     <div ng-if="$ctrl.planes.length > 0" class="plane-list">
-      <div ng-repeat="plane in $ctrl.planes track by $index"
-           ng-click="$ctrl.getPlaneDetails($index)"
-           class="plane-info">
-        <div>
-          <span>{{ plane.departure.location }} {{ plane.departure.hours }}</span>
-          <span></span>
-          <span>{{ plane.arrival.location }} {{ plane.arrival.hours }}</span>
-        </div>
+      <ion-list ng-if="$ctrl.planes.length > 0" class="plane-list">
+        <ion-item
+          ng-repeat="plane in $ctrl.planes track by $index"
+          ng-click="$ctrl.getPlaneDetails($index)">
+          <div>
+            <span>{{ plane.departure.location }} {{ plane.departure.hours }}</span>
+            <span></span>
+            <span>{{ plane.arrival.location }} {{ plane.arrival.hours }}</span>
+          </div>
 
-        <div ng-show="$ctrl.showFlyDetails($index)">
-          plus de détail ici
-          <button class="button" ng-click="$ctrl.validateFly()">Valider</button>
-        </div>
-      </div>
+          <div ng-show="$ctrl.showFlyDetails($index)">
+            plus de détail ici
+            <button class="button" ng-click="$ctrl.validateFly()">Valider</button>
+          </div>
+        </ion-item>
+      </ion-list>
     </div>
   </ion-content>
 </ion-view>

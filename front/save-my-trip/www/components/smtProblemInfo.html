@@ -1,14 +1,18 @@
 <ion-view>
-  <ion-content>
+  <ion-content scroll="false">
     <div>
-    {{ $ctrl.title }}
+      {{ $ctrl.title }}
     </div>
     <div>
-    {{ $ctrl.message }}
+      {{ $ctrl.message }}
     </div>
-    <hr/>
 
-      <button class="button" ng-show="$ctrl.hasExplanation" ng-click="$ctrl.gotoNextFlySelection()">VALIDER</button>
     </div>
+
   </ion-content>
 </ion-view>
+<div class="bar bar-footer">
+  <button class="button button-block button-positive" ng-show="$ctrl.hasExplanation"
+          ng-click="$ctrl.gotoNextFlySelection()">VALIDER
+  </button>
+</div>

@@ -1,16 +1,28 @@
 <ion-view>
   <ion-content>
     <div>
-    Scanner votre ticket
-    <button class="button" ng-click="$ctrl.scanBarcode()">SCAN</button>
+
+      <div class="row">
+        <div class="col col-33 col-offset-33">Scanner votre ticket</div>
+      </div>
+      <button class="button icon ion-ios-infinite button-block" ng-click="$ctrl.scanBarcode()"></button>
     </div>
 
     <hr/>
 
     <div>
-    <input type="text" placeholder="N° de réservation" ng-model="$ctrl.reservationNumber"/>
+      <div class="row">
 
-      <button class="button" ng-click="$ctrl.validateReservationNumber($ctrl.reservationNumber)">VALIDER</button>
+        <div class="col col-60 col-offset-20">
+          <input type="text" placeholder="N° de réservation" ng-model="$ctrl.reservationNumber"/>
+        </div>
+      </div>
+
+      <button class="button button-block button-positive"
+              ng-click="$ctrl.validateReservationNumber($ctrl.reservationNumber)">
+        VALIDER
+      </button>
+
     </div>
   </ion-content>
 </ion-view>

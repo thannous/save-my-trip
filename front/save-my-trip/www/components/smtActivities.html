@@ -1,18 +1,75 @@
-<ion-view view-title="Activities">
-  <ion-content>
+<ion-view view-title="Activities" style="height:40%; border:black 1px solid;">
+  <ion-content scroll="false">
+    <div>
+      <h1>Hotel</h1>
+      <div class="hotel-question" ng-show="$ctrl.showActivityQuestion">
+        <div class="hotel-message">
+          <h2 class="align-center">Envie de faire une activité ?</h2>
+        </div>
+        <div>
+          <div class="row">
+            <div class="col-50 align-center padding-horizontal">
+              <button class="button button-block button-positive" ng-click="$ctrl.confirmActivity()">OUI</button>
+            </div>
+            <div class="col-50 align-center padding-horizontal">
+              <button class="button button-block button-positive" ng-click="$ctrl.cancelActivity()">NON</button>
+            </div>
+          </div>
 
-    <div class="activity-question" ng-show="$ctrl.showActivityQuestion">
-      <div class="activity-message">
-        <h1>Envie de faire une activité ?</h1>
+        </div>
+
       </div>
-      <div>
-        <button class="button" ng-click="$ctrl.confirmActivity()">OUI</button>
-        <button class="button" ng-click="$ctrl.cancelActivity()">NON</button>
+      <div class="bar bar-footer">
+        <div class="row">
+          <div class="col-33 align-center padding-horizontal">
+            <button class="button button-block button-outline button-positive">top</button>
+          </div>
+          <div class="col-33 align-center padding-horizontal">
+            <button class="button button-block button-outline button-positive">Musée</button>
+          </div>
+          <div class="col-33 align-center padding-horizontal">
+            <button class="button button-block button-outline button-positive">plein air</button>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-    <div class="activity-list" ng-show="$ctrl.showActivities">
-
     </div>
   </ion-content>
 </ion-view>
+
+<ion-view style="top:40%">
+  <ion-content>
+    <ion-list ng-if="$ctrl.activities.length > 0" class="hotel-list">
+      <ion-item
+        class="margin-vertical-none border-vertical-none no-padding"
+        ng-repeat="activity in $ctrl.activities track by $index"
+        ng-click="$ctrl.getActivityDetails($index)">
+        <div class="card">
+          <div class="item item-image">
+            <img class="carded" ng-src="{{activity.imgUrl}}" smt-error-src="img/no-image.png"/>
+          </div>
+          <h2 class="padding-horizontal">{{ activity.label }}</h2>
+          <h3 class="dark padding-horizontal">{{ hotel.address}}</h3>
+          <span class="item assertive">
+            <i class="icon ion-star" ng-class=" activity.rate >=1 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" activity.rate >=2 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" activity.rate >=3 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" activity.rate >=4 ? 'energized' : 'stable' "></i>
+            <i class="icon ion-star" ng-class=" activity.rate >=5 ? 'energized' : 'stable' "></i>
+
+          </span>
+
+        </div>
+      </ion-item>
+
+
+    </ion-list>
+  </ion-content>
+</ion-view>
+<div class="bar bar-footer">
+  <div class="row">
+    <smt-wallet-footer money="$ctrl.userSrv.money" network-data="$ctrl.userSrv.networkData"></smt-wallet-footer>
+  </div>
+</div>
+
+
