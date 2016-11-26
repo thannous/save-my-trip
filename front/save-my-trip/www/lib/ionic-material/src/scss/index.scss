@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+// Ionic Material
+// scss version
+
+@import
+    // directives
+        "directives/md-label",
+
+    // elements
+        "elements/bar-header-expanded",
+        "elements/bar",
+        "elements/button-bar",
+        "elements/button-fab",
+        "elements/button-floating",
+        "elements/button",
+        "elements/card",
+        "elements/hero",
+        "elements/item",
+        "elements/list",
+        "elements/loading",
+        "elements/login",
+        "elements/mask",
+        "elements/menu",
+        "elements/motion-elements",
+
+    // helpers
+        "helpers/utilities",
+
+    // motion
+        "motion/blinds",
+        "motion/pan-in-left",
+        "motion/ripple",
+        "motion/slide-fade-in",
+        "motion/slide-in-right",
+        "motion/slide-up",
+
+    // overrides
+        "overrides/ink",
+        "overrides/ionic";

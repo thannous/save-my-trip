@@ -1,0 +1,30 @@
+<ion-view view-title="">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('img/problem.jpg');">
+            <div class="content">
+                <div class="avatar" style="background-image: url('img/daenerys.jpg');"></div>
+                <h3 ng-show="!bot"><a class="light">mmmh </a></h3>
+                <h4>{{ bot }}</h4>
+            </div>
+        </div>
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ng-click="yes()" class="tab-item">
+                <i class="icon ion-android-bus"></i> Oui
+            </a>
+            <a ng-click="no()" class="tab-item">
+                <i class="icon ion-android-notifications-none"></i> Non
+            </a>
+
+        </div>
+        <div class="list" >
+          <div ng-if="listeEntity.data">Je veux :</div>
+          <a style="visibility: visible" ng-click="res()" class="item item-avatar item-icon-right" ng-repeat="entity in listeEntity.data">
+            <img src="img/avion.jpg">
+            <h2>Numero du vol :{{ entity.flyNumber}}</h2>
+            <p>Depart : {{ entity.departure.location}} -{{ entity.departure.hours}} </p>
+            <p>Arrrivé : {{ entity.drrival.location}} - {{ entity.departure.hours}}</p>
+            <i class="icon ion-chatbubble muted"></i>
+          </a>
+        </div>
+    </ion-content>
+</ion-view>

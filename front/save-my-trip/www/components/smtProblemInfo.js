@@ -9,7 +9,7 @@ angular.module('saveMyTrip')
       $ctrl.hasExplanation = false;
 
       $timeout(function(){
-        problemSrv.get(userSrv.info.id)
+        problemSrv.get("000")
         .then(function(res){
           $ctrl.title = res.data.title;
           $ctrl.message = res.data.message;

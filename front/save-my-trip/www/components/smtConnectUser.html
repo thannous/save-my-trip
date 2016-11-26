@@ -1,29 +1,25 @@
-<ion-view>
-  <ion-content>
-    <div>
 
-      <div class="row">
-        <div class="col col-33 col-offset-33">Scanner votre ticket</div>
+
+<ion-view view-title="Login" align-title="left">
+  <ion-content style="background: url(img/hotel.png) center; background-size: cover;">
+    <div class="hero no-header flat">
+      <div class="content">
+        <div class="app-icon"></div>
+        <h1>Scanner votre ticket</h1>
       </div>
-      <button class="button icon ion-ios-infinite button-block" ng-click="$ctrl.scanBarcode()"></button>
     </div>
+    <div class="padding">
+      <button class="button button-full   icon ion-ios-infinite button-block" ng-click="$ctrl.scanBarcode()"></button>
+    </div>
+    <div class="text-center"> ou </div>
+    <div class="text-center"> Rentrer votre numero de reservation</div>
 
-    <hr/>
+    <div class="list padding row row-center">
+      <ion-md-input type="text" placeholder="N° de réservation" ng-model="$ctrl.reservationNumber" ></ion-md-input>
 
-    <div>
-      <div class="row">
-
-        <div class="col col-60 col-offset-20">
-          <input type="text" placeholder="N° de réservation" ng-model="$ctrl.reservationNumber"/>
-        </div>
-      </div>
-
-      <button class="button button-block button-positive"
-              ng-click="$ctrl.validateReservationNumber($ctrl.reservationNumber)">
-        VALIDER
-      </button>
-
+    </div>
+    <div class="padding ">
+      <button   ng-click="$ctrl.validateReservationNumber($ctrl.reservationNumber)" class="button button-full button-assertive ink">Valider</button>
     </div>
   </ion-content>
 </ion-view>
-

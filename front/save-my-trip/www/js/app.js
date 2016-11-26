@@ -4,7 +4,7 @@
 // 'saveMyTrip' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('saveMyTrip', ['ionic', 'starter.controllers', 'ngCordova', 'leaflet-directive'])
+angular.module('saveMyTrip', ['ionic', 'ionic-material', 'ionMdInput','starter.controllers', 'ngCordova', 'leaflet-directive'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -59,7 +59,9 @@ angular.module('saveMyTrip', ['ionic', 'starter.controllers', 'ngCordova', 'leaf
         url: '/dialogue',
         views: {
           'menuContent': {
-            template: '<smt-dialogue></smt-dialogue>'
+            templateUrl: 'templates/dialogue.html',
+            controller: 'DialogueCtrl'
+
           }
         }
       })
