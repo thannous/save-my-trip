@@ -59,10 +59,12 @@ Airfrance.prototype.getToken = function () {
 
 Airfrance.prototype.user = function (bookingNumber) {
   return {
-    firstName: "Ema",
-    lastName: "Venesio",
+    firstName: "Emma",
+    lastName: "Colombiana",
     flightNumber: "KL 1790",
     problemReason: "Vol dérouté à Marseille en raison d'\intempéries sur l'\aéroport de Nice",
-    problemImageUrl: "http://172.16.20.30:8080/img/weather/bad.png"
+    problemImageUrl: "http://172.16.20.30:8080/img/weather/bad.png",
+    coordinateX: "26,798",
+    coordinateY: "13.323"
   };
 };
