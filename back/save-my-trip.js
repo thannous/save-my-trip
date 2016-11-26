@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-const bodyParser =    require('body-parser');
+const bodyParser = require('body-parser');
 const Rx = require('rxjs');
+const moment = require('moment');
 
 const Airfrance = require('./airfrance-api/airfrance-api');
 const Uber = require('./uber-api/uber-api');
 const Recast = require('./recast-api/recast-api');
 const Google = require('./google-api/google-api');
-const Skyscanner =  require('./skyscanner-api/skyscanner-api');
+const Skyscanner = require('./skyscanner-api/skyscanner-api');
 const Citymapper = require('./citymapper-api/citymapper-api');
 
 module.exports = app => {
@@ -39,8 +40,8 @@ module.exports = app => {
   });
 
   const recast = new Recast({
-    token : '4ac2299f684147685cf9d17d77acae4e',
-    language : 'fr'
+    token: '4ac2299f684147685cf9d17d77acae4e',
+    language: 'fr'
   });
 
   const google = new Google({
@@ -54,43 +55,61 @@ module.exports = app => {
   const citymapper = new Citymapper();
   /* AIRFRANCE */
 
-  app.get('/api/airfrance/flightstatuses/', (request, response) =>  {
-    console.log('GET','/api/flightstatuses/');
+  app.get('/api/airfrance/flightstatuses/', (request, response) => {
+    console.log('GET', '/api/flightstatuses/');
     var getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.send(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
     airfrance.flightstatuses(getPromise);
 
   });
 
+  app.get('/api/airfrance/flights/', (request, response) => {
+    console.log('GET', '/api/airfrance/flights/');
+    var getPromise = new Rx.Subject();
+    getPromise.subscribe(function (data) {
+      response.send(data);
+    }, function (err) {
+      response.send('Error: ' + err);
+    }, function () {
+      console.log("COMPLETED");
+    });
+    airfrance.flights(getPromise);
+  });
+
+  /* Allows to get user data by flight number */
+  app.get('/api/airfrance/user', (request, response) => {
+    console.log('GET', '/api/airfrance/user');
+    response.json(airfrance.user(request.query.flightNumber));
+  });
 
   /* RECAST */
   app.post('/api/recast/textConverse', (request, response) => {
     let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.json(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
-     recast.textConverse(request.body.text, getPromise);
+    recast.textConverse(request.body.text, getPromise);
 
   });
 
   /* UBER */
 
   app.get('/api/uber/authorization', (request, response) => {
-    var url = uber.getAuthorizeUrl(['history','profile', 'request', 'places']);
+    var url = uber.getAuthorizeUrl(['history', 'profile', 'request', 'places']);
     response.redirect(url);
   });
 
-  app.get('/api/uber/callback', (request, response) =>  {
+  app.get('/api/uber/callback', (request, response) => {
     uber.authorization({
       authorization_code: request.query.code
     }, (err, access_token, refresh_token) => {
@@ -105,47 +124,47 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/uber/price',(request, response) => {
+  app.get('/api/uber/price', (request, response) => {
     console.log('api/uber/price');
     let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.send(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
     let startlat = "48.995417";
     let startlng = "2.533997";
     let endlat = "48.975919";
     let endlng = "2.500974";
-    uber.estimates.getPriceForRoute(startlat,startlng,endlat, endlng, getPromise);
+    uber.estimates.getPriceForRoute(startlat, startlng, endlat, endlng, getPromise);
   });
 
-  app.get('/api/uber/time',(request, response) => {
+  app.get('/api/uber/time', (request, response) => {
     console.log('api/uber/time');
     let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.send(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
     let startlat = "48.995417";
     let startlng = "2.533997";
-    uber.estimates.getTimeForLocation(startlat,startlng,getPromise);
+    uber.estimates.getTimeForLocation(startlat, startlng, getPromise);
   });
 
   /* GOOGLEPLACE */
 
   app.get('/api/google/nearbysearch/hotel', (request, response) => {
     let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.json(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
     google.nearbysearch.getHotel({}, getPromise);
@@ -154,11 +173,11 @@ module.exports = app => {
 
   app.get('/api/google/direction/getdirection', (request, response) => {
     let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.json(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
     google.direction.getDirection({}, getPromise);
@@ -169,11 +188,11 @@ module.exports = app => {
   app.get('/api/skyscanner/hotels/autosuggest', (request, response) => {
     console.log('api/skyscanner/hotels/autosuggest');
     let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.send(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
     skyscanner.hotels.autosuggest({
@@ -187,11 +206,11 @@ module.exports = app => {
   app.get('/api/skyscanner/hotels/livePrices', (request, response) => {
     console.log('api/skyscanner/hotels/autosuggest');
     let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
+    getPromise.subscribe(function (data) {
       response.send(data);
-    }, function(err){
+    }, function (err) {
       response.send('Error: ' + err);
-    }, function(){
+    }, function () {
       console.log("COMPLETED");
     });
     skyscanner.hotels.livePrices.session({
@@ -206,21 +225,32 @@ module.exports = app => {
     }, getPromise);
   });
 
-  app.get('/api/citymapper/traveltime',(request, response) => {
+  app.get('/api/citymapper/traveltime', (request, response) => {
     console.log('api/citymapper/traveltime');
-    let getPromise = new Rx.Subject();
-    getPromise.subscribe(function(data){
-      response.send(data);
-    }, function(err){
-      response.send('Error: ' + err);
-    }, function(){
-      console.log("COMPLETED");
-    });
-    citymapper.traveltime({}, getPromise);
+    response.json(citymapper.mockedTraveltime());
   });
 
+  app.get('/api/citymapper/houseDepartureTime', (request, response) => {
+    console.log('api/citymapper/houseDepartureTime');
+    // Gets travel parameters between house and airport.
+    let delayBeforeRecording = 120;
+    let travelTime = citymapper.mockedTraveltime().travel_time_minutes;
+    let margingError = travelTime * 30 / 100;
 
-  // "48.995417, 2.533997"
+    // Gets all travel time. It corresponds to travel with marging error and delay before
+    // recording.
+    let allTravelMinutes = delayBeforeRecording + travelTime + margingError;
+
+    // Gets flight departure time.
+    let scheduledDepartureDateTime = request.query.scheduledDepartureDateTime;
+    let scheduledDepartureMinutes = Number.parseInt(moment(scheduledDepartureDateTime).format("hh,mm")) * 60;
+
+    // Finally we get estimated the time at which the customer must go out.
+    let houseDepartureTime = moment.utc().minutes(scheduledDepartureMinutes - allTravelMinutes).format('HH:mm');
+
+    response.json(houseDepartureTime);
+  });
+
 };
 
 
