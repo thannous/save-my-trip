@@ -97,14 +97,14 @@ angular.module('saveMyTrip', ['ionic', 'ionic-material', 'ionMdInput','starter.c
         },
       })
 
-      .state('app.transportMap', {
-        url: '/transportMap',
-        views: {
-          'menuContent': {
-            template: '<smt-transport-map></smt-transport-map>',
-          },
-        },
-      })
+      // .state('app.transportMap', {
+      //   url: '/transportMap',
+      //   views: {
+      //     'menuContent': {
+      //       template: '<smt-transport-map></smt-transport-map>',
+      //     },
+      //   },
+      // })
 
       .state('app.restaurants', {
         url: '/restaurants',

@@ -10,16 +10,6 @@ angular.module('saveMyTrip')
       $scope.$parent.setExpanded(false);
       $scope.$parent.setHeaderFab(false);
 
-      
-/*      // Set Header
-      $scope.$parent.showHeader();
-      $scope.$parent.clearFabs();
-      $scope.isExpanded = false;
-      $scope.$parent.setExpanded(false);
-      $scope.$parent.setHeaderFab(false);*/
-
-
-      console.log('dial')
       var options = {};
       // Set Motion
       $timeout(function() {

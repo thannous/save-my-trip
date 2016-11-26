@@ -11,9 +11,15 @@ angular.module('saveMyTrip')
           .then(function (res) {
             console.log('get transport choices');
             console.log(res.data);
+
+
+
+
             transportSrv.transports = res.data;
           });
       };
+
+      //polyline.decode('_p~iF~ps|U_ulLnnqC_mqNvxq`@');
 
       $ctrl.selectTransport = function (transport) {
         userSrv.transportChoice = transport;
@@ -35,7 +41,14 @@ angular.module('saveMyTrip')
         return transportSrv.transports.length > 0;
       };
 
-      $ctrl.getTransports();
+      var origin = [43.446643, 5.222023];
+      var destination = [43.66, 7.21];
+      var options  = {
+        origin: origin[0]+', '+origin[1],
+        destination: destination[0]+', '+destination[1],
+      };
+
+      $ctrl.getTransports(options);
 
     },
   });
