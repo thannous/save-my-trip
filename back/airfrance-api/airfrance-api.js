@@ -49,6 +49,32 @@ Airfrance.prototype.flightstatuses = function (promise) {
 			});
 };
 
+Airfrance.prototype.contactinformations = function (country,promise) {
+	var options = {
+	  url: this.defaults.base_url+'/contactinformations?country.code='+country+'&access_token='+accessToken
+	};
+	console.log(options)
+	request.get(options
+			, (error, response, body) => {
+				if (!error && response.statusCode == 200) {
+					promise.next(body);
+				}
+			});
+};
+
+Airfrance.prototype.reservations = function (customerId,promise) {
+	var options = {
+	  url: this.defaults.base_url+'/customers/'+customerId+'/flight-reservations&access_token='+accessToken
+	};
+	console.log(options)
+	request.get(options
+			, (error, response, body) => {
+				if (!error && response.statusCode == 200) {
+					promise.next(body);
+				}
+			});
+};
+
 Airfrance.prototype.getToken = function () {
 	this.clientAuth.credentials.getToken()
 	  .then(function (user) {
