@@ -6,7 +6,6 @@ const router = express.Router();
 
 const airfrance = new Airfrance({
   base_url: 'https://api.klm.com/travel',
-  server_token: 'opkoUm_nA48pi_O6VIh-H89YXNVPoilek4d7fILD',
   access_token_url: 'https://www.klm.com/oauthcust/oauth/token',
   authorize_url: 'https://www.klm.com/oauthcust/authorize',
   client_id: 'q685fzg2gunq28qxmyg4u5u8',
