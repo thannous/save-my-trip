@@ -55,7 +55,14 @@ angular.module('saveMyTrip', ['ionic', 'starter.controllers', 'ngCordova'])
           },
         },
       })
-
+      .state('app.dialogue', {
+        url: '/dialogue',
+        views: {
+          'menuContent': {
+            template: '<smt-dialogue></smt-dialogue>'
+          }
+        }
+      })
       .state('app.walletValidation', {
         url: '/walletValidation',
         views: {

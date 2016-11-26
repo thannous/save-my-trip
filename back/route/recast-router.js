@@ -11,6 +11,7 @@ const recast = new Recast({
 
 /* RECAST */
 router.route('/textConverse').post((request, response) => {
+  console.log('dial', request.body);
   let getPromise = new Rx.Subject();
   getPromise.subscribe(function (data) {
     response.json(data);
