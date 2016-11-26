@@ -1,20 +1,19 @@
-<ion-view>
-  <ion-content scroll="false">
-    <h1 class="text-center"> Info sur le vol</h1>
-    <h2 class="text-center">AF 6006</h2>
-    <div>
-      {{ $ctrl.title }}
-    </div>
-    <div>
-      {{ $ctrl.message }}
+<ion-view view-title="Login" align-title="left">
+  <ion-content style="background: url(img/hotel.png) center; background-size: cover;">
+    <div class="hero no-header flat">
+      <div class="content">
+        <h1 class="text-center"> Mmmh j'ai trouvé des infos sur votre vol</h1>
+        <h2 class="text-center">AF 6006</h2>
+      </div>
     </div>
 
-    </div>
 
+    <div class="list padding row row-center">
+      <div>{{ $ctrl.title }}</div>
+      <div>{{ $ctrl.message }}</div>
+    </div>
+    <div class="padding ">
+      <button   ng-click="$ctrl.validateReservationNumber($ctrl.reservationNumber)" class="button button-full button-assertive ink">Valider</button>
+    </div>
   </ion-content>
 </ion-view>
-<div class="bar bar-footer">
-  <button class="button button-block button-positive" ng-show="$ctrl.hasExplanation"
-          ng-click="$ctrl.gotoNextFlySelection()">VALIDER
-  </button>
-</div>
