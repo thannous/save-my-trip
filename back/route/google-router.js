@@ -124,9 +124,11 @@ router.route('/direction/getdirection').get((request, response) => {
   }, function () {
     console.log("COMPLETED");
   });
-  google.direction.getDirection({}, getPromise);
-});
 
+  let origin = request.query.origin;
+  let destination = request.query.destination;
+  google.direction.getDirection(origin, destination, {}, getPromise);
+});
 
 /**
  * Allows to add a price to a places. This price is recovered from price combinations.
