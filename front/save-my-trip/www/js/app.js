@@ -31,6 +31,11 @@ angular.module('saveMyTrip', ['ionic', 'ionic-material', 'ionMdInput','starter.c
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
       })
+      .state('problemInfo2', {
+        url: '/problemInfo2',
+        templateUrl: 'templates/infoVol.html',
+        controller: 'InfoCtrl'
+      })
 
       .state('detectNetwork', {
         url: '/detectNetwork',
