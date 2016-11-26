@@ -5,7 +5,12 @@ const express = require('express');
 const router = express.Router();
 
 const airfrance = new Airfrance({
+  base_url: 'https://api.klm.com/travel',
   server_token: 'opkoUm_nA48pi_O6VIh-H89YXNVPoilek4d7fILD',
+  access_token_url: 'https://www.klm.com/oauthcust/oauth/token',
+  authorize_url: 'https://www.klm.com/oauthcust/authorize',
+  client_id: 'q685fzg2gunq28qxmyg4u5u8',
+  client_secret: 'd4RA2T8deZ'
 });
 
 /* AIRFRANCE */
@@ -22,19 +27,6 @@ router.route('/flightstatuses').get((request, response) => {
   });
   airfrance.flightstatuses(getPromise);
 
-});
-
-router.route('/flights').get((request, response) => {
-  console.log('GET', '/api/airfrance/flights/');
-  var getPromise = new Rx.Subject();
-  getPromise.subscribe(function (data) {
-    response.send(data);
-  }, function (err) {
-    response.send('Error: ' + err);
-  }, function () {
-    console.log("COMPLETED");
-  });
-  airfrance.flights(getPromise);
 });
 
 /* Allows to get user data by flight number */

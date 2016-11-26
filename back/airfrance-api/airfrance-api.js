@@ -1,7 +1,14 @@
-var OAuth = require('oauth');
+var ClientOAuth2 = require('client-oauth2')
 var util = require('util');
 
 var request = require('request');
+
+/**
+ * Default headers .
+ */
+var DEFAULT_HEADERS = {
+  'Accept': 'application/hal+json;version=com.afkl.operationalflight.v1'
+}
 
 function Airfrance(options) {
   this.defaults = {
@@ -10,71 +17,44 @@ function Airfrance(options) {
     server_token: options.server_token,
     redirect_uri: options.redirect_uri,
     name: options.name,
-    base_url: this.sandbox ? 'https://sandbox-api.uber.com/' : 'https://api.uber.com/',
-    authorize_url: 'https://login.uber.com/oauth/authorize',
-    access_token_url: 'https://login.uber.com/oauth/token',
+    base_url: options.base_url,
+    authorize_url: options.authorize_url,
+    access_token_url: options.access_token_url,
     language: options.language ? options.language : 'fr_FR'
   };
-
-  this.oauth2 = new OAuth.OAuth2(
-    this.defaults.client_id,
-    this.defaults.client_secret,
-    '',
-    this.defaults.authorize_url,
-    this.defaults.access_token_url
-  );
-
-  this.access_token = options.access_token;
-  this.refresh_token = options.refresh_token;
+  
+  this.clientAuth = new ClientOAuth2({
+	  clientId: this.defaults.client_id,
+	  clientSecret: this.defaults.client_secret,
+	  accessTokenUri: this.defaults.access_token_url,
+	  authorizationUri: this.defaults.authorize_url
+	})
+  let accessToken=undefined;
+  this.getToken();
 };
 
 module.exports = Airfrance;
 
 Airfrance.prototype.flightstatuses = function (promise) {
-  request.get('http://fox.klm.com/fox/json/flightstatuses?originAirportCode=AMS&destinationAirportCode=CDG'
-    , (error, response, body) => {
-      if (!error && response.statusCode == 200) {
-        promise.next(body);
-      }
-    });
+	var options = {
+	  url: this.defaults.base_url+'/flightstatus?access_token='+accessToken,
+	  headers: DEFAULT_HEADERS
+	};
+	console.log(options)
+	request.get(options
+			, (error, response, body) => {
+				if (!error && response.statusCode == 200) {
+					promise.next(body);
+				}
+			});
 };
 
-Airfrance.prototype.flights = function (promise) {
-  var body =
-     [
-      {
-        flyNumber: '00001',
-        departure: {location: 'Paris', hours: '10:00'},
-        arrival: {location: 'Marseille', hours: '12:00'}
-      },
-      {
-        flyNumber: '00001',
-        departure: {location: 'Paris', hours: '12:00'},
-        arrival: {location: 'Marseille', hours: '13:00'}
-      },
-      {
-        flyNumber: '00001',
-        departure: {location: 'Paris', hours: '14:00'},
-        arrival: {location: 'Marseille', hours: '15:00'}
-      },
-      {
-        flyNumber: '00001',
-        departure: {location: 'Paris', hours: '16:00'},
-        arrival: {location: 'Marseille', hours: '17:00'}
-      },
-      {
-        flyNumber: '00001',
-        departure: {location: 'Paris', hours: '17:00'},
-        arrival: {location: 'Marseille', hours: '18:00'}
-      },
-      {
-        flyNumber: '00001',
-        departure: {location: 'Paris', hours: '18:00'},
-        arrival: {location: 'Marseille', hours: '19:00'}
-      },
-    ];
-
-  promise.next(body);
+Airfrance.prototype.getToken = function () {
+	this.clientAuth.credentials.getToken()
+	  .then(function (user) {
+		  accessToken=user.accessToken;
+		  console.log(accessToken)
+	  })
 };
 
 Airfrance.prototype.user = function (bookingNumber) {
