@@ -7,7 +7,7 @@ const recastRouter = require('./route/recast-router');
 const googleRouter = require('./route/google-router');
 const skyScannerRouter = require('./route/skyscanner-router');
 const cityMapperRouter = require('./route/citymapper-router');
-
+const walletRouter = require('./route/wallet-router');
 
 module.exports = app => {
   app.use(bodyParser.urlencoded({extended: true}));
@@ -27,6 +27,8 @@ module.exports = app => {
   app.use('/api/google/', googleRouter);
   app.use('/api/skyscanner/', skyScannerRouter);
   app.use('/api/citymapper/', cityMapperRouter);
+  app.use('/api/wallet/', walletRouter);
+
 };
 
 
