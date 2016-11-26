@@ -3,7 +3,7 @@ angular.module('saveMyTrip')
     'templateUrl': 'components/smtConnectUser.html',
     'controller': function($scope, $state, $cordovaBarcodeScanner, userSrv, $state,$timeout ,ionicMaterialMotion, ionicMaterialInk) {
       $ctrl = this;
-      
+
       $ctrl.reservationNumber = '';
 
       // barcode
@@ -61,7 +61,7 @@ angular.module('saveMyTrip')
           userSrv.info = res.data;
           console.log('userSrv.info');
           console.log( JSON.stringify(userSrv.info));
-          $state.go('problemInfo');
+          $state.go('problemInfo2');
         })
       };
 

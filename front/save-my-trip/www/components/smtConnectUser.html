@@ -1,16 +1,14 @@
-
-
-<ion-view view-title="Login" align-title="left">
+<ion-view view-title="Login"  class="step1trip" align-title="left">
   <ion-content style="background: url(img/hotel.png) center; background-size: cover;">
     <div class="hero no-header flat">
       <div class="content">
         <div class="app-icon"></div>
-        <h1>Scanner votre ticket</h1>
+        <h1>Scannez votre ticket</h1>
       </div>
     </div>
-    <div class="padding">
-      <button class="button button-full   icon ion-ios-infinite button-block" ng-click="$ctrl.scanBarcode()"></button>
-    </div>
+      <div class="img-center">
+        <a ng-click="$ctrl.scanBarcode()"> <img style="width: 100px" src="img/Scan_billet.png"></a>
+      </div>
     <div class="text-center"> ou </div>
     <div class="text-center"> Rentrer votre numero de reservation</div>
 

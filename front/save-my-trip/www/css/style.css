@@ -67,12 +67,12 @@ p {
 ==================================*/
 .app-icon {
   background-color: #fff;
-  background: url('../img/Playboy.jpg') center;
+  background: url('../img/header_logo.png') center;
   background-size: cover;
-  border-radius: 50%;
-  height: 125px;
+  height: 150px;
   margin: 0 auto;
-  width: 125px;
+  width: 220px;
+
 }
 
 
@@ -321,9 +321,185 @@ p {
 .platform-android .popover{
   margin-top:10px;
 }
+.hero{
+  height: 400px;
+}
 
-.transport-label{
-  font-weight: bolder;
-  font-size: 130%;
-  margin-right: 15px;
+
+.hero > .content{
+  top: 20px;
+}
+.listdialogue{
+  padding-top: 35px;
+}
+
+
+.img-center{
+  padding-top: 25px;
+  margin: 0 auto;
+  width: 100px;
+}
+
+.hero .button, .hero .button.button-flat, .hero .button.button-large {
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+.step1trip h1{
+  color: #2c4475;
+}
+
+.step1trip h3{
+  color: #3a6175;
+}
+
+/*Timeline*/
+
+.pos-absolute-right {
+  position: absolute;
+  right: 8px;
+}
+
+.timeline {
+  position: relative;
+  margin: 15px 0 0 0;
+}
+.timeline h4{
+ color: #3081b4;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: #ff7465;
+  left: 44px;
+  margin-left: -10px;
+  z-index: 1;
+}
+
+.timeline .timeline-thumb {
+  border-radius: 500px;
+  width: 50px;
+  z-index: 2;
+  position: absolute;
+  left: 10px
+}
+
+.timeline .timeline-thumb.timeline-icon {
+  height: 50px;
+  text-align: center;
+  color: white;
+  border: 5px solid #CBD0D3;
+}
+
+.timeline .timeline-thumb.timeline-icon i {
+  font-size: 28px;
+  margin: 6px 0;
+  display: block;
+}
+
+.timeline .timeline-item {
+  margin-left: 72px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+.timeline .timeline-stats {
+  position: relative;
+  font-size: 12px;
+  color: #7F8C8D;
+}
+
+
+.divider-title {
+  background: #e4e4e4;
+  padding: 5px 15px;
+}
+
+/* === Color Themes === */
+.text-muted {
+  color: #6d6d72 !important;
+}
+
+.color-gray {
+  color: #8e8e93 !important;
+}
+
+.color-red {
+  color: #ff3b30 !important;
+}
+
+.bg-color-red {
+  background-color: #c55349  !important;
+}
+
+.color-white {
+  color: #ffffff !important;
+}
+
+.color-yellow {
+  color: #ffcc00 !important;
+}
+
+.bg-color-yellow {
+  background-color: #ffcc00 !important;
+}
+
+.color-green {
+  color: #4cd964 !important;
+}
+
+.color-orange {
+  color: #ff9500 !important;
+}
+
+.bg-color-orange {
+  background-color: #ff9500 !important;
+}
+
+.color-blue {
+  color: #007aff !important;
+}
+
+.bg-color-blue {
+  background-color: #007aff !important;
+}
+
+.color-lightblue {
+  color: #5ac8fa !important;
+}
+
+.bg-color-lightblue {
+  background-color: #5ac8fa !important;
+}
+
+.color-bluegray {
+  color: #607d8b !important;
+}
+
+.bg-color-bluegray {
+  background-color: #607d8b !important;
+}
+
+.color-night {
+  color: #2B1B17 !important;
+}
+
+.color-black {
+  color: black !important;
+}
+
+.bg-color-white {
+  background-color: #ffffff;
+}
+
+.bg-color-green {
+  background-color: #4cd964 !important;
 }
