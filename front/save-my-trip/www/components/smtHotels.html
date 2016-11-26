@@ -1,0 +1,19 @@
+<ion-view view-title="Hotels">
+  <ion-content>
+    <h1>Hotel</h1>
+    <div class="hotel-question" ng-show="$ctrl.showHotelquestion">
+      <div class="hotel-message">
+        <h1>Voulez vous un hôtel ?</h1>
+      </div>
+      <div>
+        <button class="button" ng-click="$ctrl.confirmHotel()">OUI</button>
+        <button class="button" ng-click="$ctrl.cancelHotel()">NON</button>
+      </div>
+    </div>
+
+
+    <div class="hotel-list" ng-show="$ctrl.showHotels">
+
+    </div>
+  </ion-content>
+</ion-view>

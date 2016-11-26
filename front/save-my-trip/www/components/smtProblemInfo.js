@@ -18,7 +18,7 @@ angular.module('saveMyTrip')
       }, 3000);
 
       $ctrl.gotoNextFlySelection = function(){
-        $state.go('nextFly');
+        $state.go('app.nextFly');
       };
 
     },

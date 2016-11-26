@@ -6,88 +6,119 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('saveMyTrip', ['ionic', 'starter.controllers', 'ngCordova'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+  .run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
-})
-
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
-
-    .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-    .state('detectNetwork', {
-    url: '/detectNetwork',
-    template: '<smt-detect-network></smt-detect-network>'
-  })
-
-    .state('connectUser', {
-    url: '/connectUser',
-    template: '<smt-connect-user></smt-connect-user>'
-  })
-
-    .state('problemInfo', {
-    url: '/problemInfo',
-    template: '<smt-problem-info></smt-problem-info>'
-  })
-
-    .state('nextFly', {
-    url: '/nextFly',
-    template: '<smt-next-fly></smt-next-fly>'
-  })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
       }
-    }
+      if (window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
+      }
+    });
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+
+      .state('app', {
+        url: '/app',
+        abstract: true,
+        templateUrl: 'templates/menu.html',
+        controller: 'AppCtrl'
+      })
+
+      .state('detectNetwork', {
+        url: '/detectNetwork',
+        template: '<smt-detect-network></smt-detect-network>'
+      })
+
+      .state('connectUser', {
+        url: '/connectUser',
+        template: '<smt-connect-user></smt-connect-user>'
+      })
+
+      .state('problemInfo', {
+        url: '/problemInfo',
+        template: '<smt-problem-info></smt-problem-info>'
+      })
+
+      .state('app.nextFly', {
+        url: '/nextFly',
+        views: {
+          'menuContent': {
+            template: '<smt-next-fly></smt-next-fly>'
+          },
+        },
+      })
+
+      .state('app.walletValidation', {
+        url: '/walletValidation',
+        views: {
+          'menuContent': {
+            template: '<smt-wallet-validation></smt-wallet-validation>'
+          },
+        },
+      })
+
+      .state('app.hotels', {
+        url: '/hotels',
+        views: {
+          'menuContent': {
+            template: '<smt-hotels></smt-hotels>',
+          },
+        },
+      })
+
+      .state('app.restaurants', {
+        url: '/restaurants',
+        views: {
+          'menuContent': {
+            template: '<smt-restaurants></smt-restaurants>',
+          },
+        },
+      })
+
+      .state('app.activities', {
+        url: '/activities',
+        views: {
+          'menuContent': {
+            template: '<smt-activities></smt-activities>',
+          },
+        },
+      })
+
+      .state('app.browse', {
+        url: '/browse',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/browse.html'
+          }
         }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+      })
+      .state('app.playlists', {
+        url: '/playlists',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/playlists.html',
+            controller: 'PlaylistsCtrl'
+          }
         }
-      }
-    })
+      })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
+      .state('app.single', {
+        url: '/playlists/:playlistId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/playlist.html',
+            controller: 'PlaylistCtrl'
+          }
+        }
+      });
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/detectNetwork');
   });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/detectNetwork');
-});

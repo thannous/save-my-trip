@@ -1,0 +1,19 @@
+<ion-view view-title="Restaurants">
+  <ion-content>
+    <h1>Restaurant</h1>
+    <div class="restaurant-question" ng-show="$ctrl.showRestaurantQuestion">
+      <div class="restaurant-message">
+        <h1>Vous avez faim ?</h1>
+      </div>
+      <div>
+        <button class="button" ng-click="$ctrl.confirmRestaurant()">OUI</button>
+        <button class="button" ng-click="$ctrl.cancelRestaurant()">NON</button>
+      </div>
+    </div>
+
+
+    <div class="restaurant-list" ng-show="$ctrl.showRestaurants">
+
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,18 @@
+<ion-view view-title="Activities">
+  <ion-content>
+
+    <div class="activity-question" ng-show="$ctrl.showActivityQuestion">
+      <div class="activity-message">
+        <h1>Envie de faire une activité ?</h1>
+      </div>
+      <div>
+        <button class="button" ng-click="$ctrl.confirmActivity()">OUI</button>
+        <button class="button" ng-click="$ctrl.cancelActivity()">NON</button>
+      </div>
+    </div>
+
+    <div class="activity-list" ng-show="$ctrl.showActivities">
+
+    </div>
+  </ion-content>
+</ion-view>
