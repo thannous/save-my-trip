@@ -148,7 +148,27 @@ angular.module('starter.controllers', [])
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {})
 
+  .controller('InfoCtrl', function($scope, $stateParams, $timeout,$state, problemSrv, ionicMaterialMotion, ionicMaterialInk, recastSrv, flySrv) {
+    $ctrl = this;
 
+    $scope.title = '';
+    $scope.message = 'attendez, on verifie ce qui se passe....';
+    $scope.hasExplanation = false;
+
+    $timeout(function(){
+      problemSrv.get("000")
+        .then(function(res){
+          $scope.title = res.data.title;
+          $scope.message = res.data.message;
+          $scope.hasExplanation = true;
+        });
+    }, 3000);
+
+    $scope.goDialogue = function(){
+      console.log("dialogue")
+      $state.go('app.dialogue');
+    };
+  })
   .controller('DialogueCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, recastSrv, flySrv) {
     // Set Header
     $scope.$parent.showHeader();
@@ -176,13 +196,16 @@ angular.module('starter.controllers', [])
           console.log('flySrv result');
           console.log(JSON.stringify(res));
           $scope.listeEntity = flySrv.planes =  res.data;
+          $scope.bot = "Ok, parfais voici la liste des moyens de transport, que voulez vous ?"
         });
     };
 
     $scope.no = function (){
 
     };
-
+    $scope.getdetail = function (data){
+      $scope.detailEntity = data
+    }
     // Set Motion
     $timeout(function() {
       ionicMaterialMotion.slideUp({
