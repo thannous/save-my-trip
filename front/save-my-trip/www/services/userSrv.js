@@ -1,19 +1,22 @@
 angular.module('saveMyTrip')
 
   .factory('userSrv', function ($http, $q, $interval) {
-    var user = {};
+    var userSrv = {};
 
-    user.info = undefined;
-    user.money = 0;
-    user.networkData = 0;
+    userSrv.info = undefined;
 
-    user.init = function () {
-      user.money = 350;
-      user.networkData = 120;
+    userSrv.networkData = 0;
+    userSrv.hotelChoice = undefined;
+    userSrv.transportChoice = undefined;
+    userSrv.restaurantChoice = undefined;
+
+    userSrv.init = function () {
+      userSrv.initMoney = 350;
+      userSrv.networkData = 120;
 
       var interval = $interval(function () {
-        if (user.networkData > 0) {
-          user.networkData--;
+        if (userSrv.networkData > 0) {
+          userSrv.networkData--;
         }
         else {
           interval.cancel();
@@ -21,7 +24,26 @@ angular.module('saveMyTrip')
       }, 60000);
     };
 
-    user.get = function (id) {
+
+    userSrv.computeMoney = function () {
+      var m = userSrv.initMoney;
+
+      if (userSrv.hotelChoice) {
+        m -= userSrv.hotelChoice.price;
+      }
+
+      if (userSrv.transportChoice) {
+        m -= userSrv.transportChoice.price;
+      }
+
+      if (userSrv.restaurantChoice) {
+        m -= userSrv.restaurantChoice.price;
+      }
+
+      return m;
+    };
+
+    userSrv.get = function (id) {
       //return $http.get('myPath', { params: { id: id }});
       // perform some asynchronous operation, resolve or reject the promise when appropriate.
       return $q(function (resolve, reject) {
@@ -38,5 +60,5 @@ angular.module('saveMyTrip')
       });
     };
 
-    return user;
+    return userSrv;
   });

@@ -4,11 +4,12 @@ angular.module('saveMyTrip')
     'controller': function ($scope, $state, hotelSrv, userSrv) {
       $ctrl = this;
 
-      $ctrl.showHotelquestion = true;
+      //dunno ask for hotel if already selected
       $ctrl.showHotels = false;
       $ctrl.options = {};
       $ctrl.hotels = [];
       $ctrl.userSrv = userSrv;
+      $ctrl.showHotelquestion = $ctrl.userSrv.hotelChoice ? false : true;
 
       $ctrl.confirmHotel = function () {
         $ctrl.showHotelquestion = false;
@@ -16,14 +17,14 @@ angular.module('saveMyTrip')
         $ctrl.getHotels($ctrl.options);
       };
 
-      $ctrl.getHotels = function(options){
+      $ctrl.getHotels = function (options) {
         hotelSrv.get(options)
-          .then(function(res){
+          .then(function (res) {
             $ctrl.hotels = res.data;
           });
       };
 
-      $ctrl.getHotelDetails = function(index){
+      $ctrl.getHotelDetails = function (index) {
 
       }
 
@@ -32,10 +33,10 @@ angular.module('saveMyTrip')
 
       };
 
-      $ctrl.options = {}
-      $ctrl.searchHotels = function (options) {
-
-      }
+      $ctrl.selectHotel = function (hotel) {
+        $ctrl.userSrv.hotelChoice = hotel;
+        $state.go('app.transportSelection');
+      };
 
     },
   });

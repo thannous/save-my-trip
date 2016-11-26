@@ -55,6 +55,7 @@
             <i class="icon ion-star" ng-class=" hotel.rate >=5 ? 'energized' : 'stable' "></i>
 
           </span>
+          <button class="button " ng-click="$ctrl.selectHotel(hotel)">SELECTIONNER</button>
 
         </div>
       </ion-item>
@@ -65,7 +66,7 @@
 </ion-view>
 <div class="bar bar-footer">
   <div class="row">
-    <smt-wallet-footer money="$ctrl.userSrv.money" network-data="$ctrl.userSrv.networkData"></smt-wallet-footer>
+    <smt-wallet-footer money="$ctrl.userSrv.computeMoney()" network-data="$ctrl.userSrv.networkData"></smt-wallet-footer>
   </div>
 </div>
 

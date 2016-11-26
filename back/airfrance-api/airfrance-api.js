@@ -40,8 +40,8 @@ Airfrance.prototype.flightstatuses = function (promise) {
 };
 
 Airfrance.prototype.flights = function (promise) {
-  var body = {
-    data: [
+  var body =
+     [
       {
         flyNumber: '00001',
         departure: {location: 'Paris', hours: '10:00'},
@@ -72,8 +72,8 @@ Airfrance.prototype.flights = function (promise) {
         departure: {location: 'Paris', hours: '18:00'},
         arrival: {location: 'Marseille', hours: '19:00'}
       },
-    ],
-  };
+    ];
+
   promise.next(body);
 };
 

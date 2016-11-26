@@ -1,0 +1,30 @@
+<ion-view view-title="TransportSelection">
+  <ion-content scroll="false">
+    <h1>transport</h1>
+    <div class="list transport">
+
+      <a class="item item-icon-left" ng-click="$ctrl.selectTransport($ctrl.transportSrv.transports.bus)">
+        <i class="icon ion-android-bus"></i>
+        Bus {{$ctrl.transportSrv.transports.bus.time }} {{ $ctrl.transportSrv.transports.bus.price}}
+      </a>
+
+      <a class="item item-icon-left" ng-click="$ctrl.selectTransport($ctrl.transportSrv.transports.taxi)">
+        <i class="icon ion-android-car"></i>
+        Taxi {{$ctrl.transportSrv.transports.taxi.time }} {{ $ctrl.transportSrv.transports.taxi.price}}
+      </a>
+
+      <a class="item item-icon-left" ng-click="$ctrl.selectTransport($ctrl.transportSrv.transports.vtc)">
+        <i class="icon ion-model-s"></i>
+        VTC UBER {{$ctrl.transportSrv.transports.vtc.time }} {{ $ctrl.transportSrv.transports.vtc.price}}
+      </a>
+    </div>
+
+  </ion-content>
+</ion-view>
+<div class="bar bar-footer">
+  <div class="row">
+    <smt-wallet-footer money="$ctrl.userSrv.computeMoney()" network-data="$ctrl.userSrv.networkData"></smt-wallet-footer>
+  </div>
+</div>
+
+
