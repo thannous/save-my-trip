@@ -1,22 +1,22 @@
 angular.module('saveMyTrip')
 
-  .factory('transportSrv', function($http, $q) {
+  .factory('transportSrv', function ($http, $q) {
     var transportSrv = {};
 
-    transportSrv.restaurants = undefined;
+    transportSrv.transports = [];
 
-    transportSrv.get = function(options) {
+    transportSrv.get = function (options) {
       //return $http.get('myPath', { params: options});
       // perform some asynchronous operation, resolve or reject the promise when appropriate.
-      return $q(function(resolve, reject) {
-        setTimeout(function() {
+      return $q(function (resolve, reject) {
+        setTimeout(function () {
           console.log('transportSrv get');
           var data = {
-            data: {
-              vtc: { price: 1000, time: 35},
-              taxi: { price: 30, time: 300},
-              bus: { price: 1605, time: 30},
-            },
+            data: [
+              {type: 'vtc', price: 1000, time: 35},
+              {type: 'taxi', price: 30, time: 300},
+              {type: 'bus', price: 1605, time: 30},
+            ],
           };
           resolve(data);
         }, 1000);
