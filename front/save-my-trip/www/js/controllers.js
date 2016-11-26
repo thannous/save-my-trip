@@ -195,6 +195,7 @@ angular.module('starter.controllers', [])
         .then(function(res){
           console.log('flySrv result');
           console.log(JSON.stringify(res));
+          console.log(res)
           $scope.listeEntity = flySrv.planes =  res.data;
           $scope.bot = "Ok, parfais voici la liste des moyens de transport, que voulez vous ?"
         });
