@@ -1,12 +1,12 @@
 var qs = require("querystring");
 
 var request = require('request');
-var proxiedRequest = request.defaults({'proxy':'http://FLX_PILOTAGE:FLX_PILOTAGE@192.168.77.12:8080'});
+var proxiedRequest = request.defaults({'proxy': 'http://FLX_PILOTAGE:FLX_PILOTAGE@192.168.77.12:8080'});
 
 function Citymapper(options) {
   this.default = {
     apiKey: "a0bc7a0132797045bab9e39b954640e3",
-    base_url:  "https://developer.citymapper.com"
+    base_url: "https://developer.citymapper.com"
   }
 }
 
@@ -20,18 +20,21 @@ Citymapper.prototype.traveltime = function (parameters, promise) {
   parameters.startcoord = parameters.startcoord || "48.995417, 2.533997";
   parameters.endcoord = parameters.endcoord || "48.975919, 2.500974";
   this.get({
-      url: "/api/1/traveltime/"+ "?" + qs.stringify(parameters)
+      url: "/api/1/traveltime/" + "?" + qs.stringify(parameters)
     },
     promise)
 };
 
+Citymapper.prototype.mockedTraveltime = function () {
+  return {travel_time_minutes: 28};
+};
 
 Citymapper.prototype.get = function get(options, promise) {
   console.log(options);
-  proxiedRequest.get({
+  request.get({
     url: this.default.base_url + options.url,
     json: true
-  }, function(err, data, res) {
+  }, function (err, data, res) {
     if (err || data.statusCode >= 400) {
       promise.error(err)
     } else {
