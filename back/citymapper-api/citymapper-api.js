@@ -1,5 +1,6 @@
-var qs = require("querystring");
+const moment = require('moment');
 
+var qs = require("querystring");
 var request = require('request');
 
 function Citymapper(options) {
@@ -9,9 +10,7 @@ function Citymapper(options) {
   }
 }
 
-
 module.exports = Citymapper;
-
 
 Citymapper.prototype.traveltime = function (parameters, promise) {
   let _this = this;
@@ -26,6 +25,26 @@ Citymapper.prototype.traveltime = function (parameters, promise) {
 
 Citymapper.prototype.mockedTraveltime = function () {
   return {travel_time_minutes: 28};
+};
+
+Citymapper.prototype.houseDepartureTime = function (scheduledDepartureDateTime) {
+
+  // Gets travel parameters between house and airport.
+  let delayBeforeRecording = 120;
+  let travelTime = this.mockedTraveltime().travel_time_minutes;
+  let margingError = travelTime * 30 / 100;
+
+  // Gets all travel time. It corresponds to travel with marging error and delay before
+  // recording.
+  let allTravelMinutes = delayBeforeRecording + travelTime + margingError;
+
+  // Gets flight departure time.
+  let scheduledDepartureMinutes = Number.parseFloat(moment(scheduledDepartureDateTime).format("hh.mm")) * 60;
+
+  // Finally we get the estimated time at which the customer must go out.
+  let houseDepartureTime = moment.utc().startOf('day').minutes(scheduledDepartureMinutes - allTravelMinutes).format('hh:mm');
+
+  return {houseDepartureTime: houseDepartureTime};
 };
 
 Citymapper.prototype.get = function get(options, promise) {
