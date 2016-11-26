@@ -1,24 +1,35 @@
-<ion-view view-title="Hotels" style="height:40%; border:black 1px solid;">
+<ion-view view-title="transportMap">
   <ion-content scroll="false">
-    <div>
-      <h1>MAP</h1>
+    <h1>MAP</h1>
+    <div class="list transport">
+
+      <a class="item item-icon-left">
+        <i class="icon ion-{{ $ctrl.iconSrv.transport[ $ctrl.userSrv.transportChoice.type ] }}"></i>
+        <span class="transport-label">{{ $ctrl.userSrv.transportChoice.type }}</span> ~ {{$ctrl.userSrv.transportChoice.time }} minutes
+        <span class="item-note">
+        {{ $ctrl.userSrv.transportChoice.price}} €
+        </span>
+      </a>
+    </div>
 
 
-      <!--<ion-nav-buttons side="left">-->
-        <!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
-      <!--</ion-nav-buttons>-->
+    <!--<ion-nav-buttons side="left">-->
+    <!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+    <!--</ion-nav-buttons>-->
 
-      <!--<ion-nav-buttons side="right">-->
-        <!--<button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>-->
-      <!--</ion-nav-buttons>-->
+    <!--<ion-nav-buttons side="right">-->
+    <!--<button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>-->
+    <!--</ion-nav-buttons>-->
 
-      <ion-content data-tap-disabled="true">
+    <ion-content data-tap-disabled="true">
 
-        <leaflet defaults="$ctrl.map.defaults" center="$ctrl.map.center" markers="$ctrl.map.markers"></leaflet>
+      <div ng-if="center" style="height: 50%;border: 2px solid blue;top: 150px;position: relative;">
+        <leaflet defaults="$ctrl.map.defaults" center="center" markers="$ctrl.map.markers"
+                 style="height:100%"></leaflet>
+      </div>
 
-      </ion-content>
 
-      [{{$ctrl.map}}]
+    </ion-content>
 
 
   </ion-content>

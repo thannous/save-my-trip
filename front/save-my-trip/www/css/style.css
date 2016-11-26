@@ -1,6 +1,7 @@
 /* Empty. Add your own CSS if you like */
 /* General
 ==================================*/
+
 h1 {
   color: #fff;
   text-shadow: 0 1px 0px #000;
@@ -319,4 +320,10 @@ p {
 }
 .platform-android .popover{
   margin-top:10px;
+}
+
+.transport-label{
+  font-weight: bolder;
+  font-size: 130%;
+  margin-right: 15px;
 }
