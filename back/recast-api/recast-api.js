@@ -19,7 +19,6 @@ Recastai.prototype.textConverse = function (text, promise) {
   let _this = this;
   let config = {
     conversationToken: this.myConversationToken,
-    proxy: 'http://FLX_PILOTAGE:FLX_PILOTAGE@192.168.77.12:8080'
   }
   this.client.textConverse('salut !', config)
   .then(res => {

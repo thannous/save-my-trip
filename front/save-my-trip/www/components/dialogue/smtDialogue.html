@@ -1,0 +1,37 @@
+<ion-view view-title="dialogue">
+  <ion-content class="has-header">
+    <div>
+
+      <div class="text-center padding">
+        {{ $ctrl.bot }}
+      </div>
+      <div class="row">
+        <div class="col col-center">
+          <button class="button"   ng-click="$ctrl.getPlane()">>
+            Oui
+        </button>
+          <button class="button button-positive">
+            Non
+          </button></div>
+      </div>
+    </div>
+    <div ng-if="$ctrl.planes.length > 0" class="plane-list">
+      <ion-list ng-if="$ctrl.planes.length > 0" class="plane-list">
+        <ion-item
+          ng-repeat="plane in $ctrl.planes track by $index"
+          ng-click="$ctrl.getPlaneDetails($index)">
+          <div>
+            <span>{{ plane.departure.location }} {{ plane.departure.hours }}</span>
+            <span></span>
+            <span>{{ plane.arrival.location }} {{ plane.arrival.hours }}</span>
+          </div>
+
+          <div ng-show="$ctrl.showFlyDetails($index)">
+            plus de détail ici
+            <button class="button" ng-click="$ctrl.validateFly()">Valider</button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>

@@ -60,7 +60,7 @@ Estimates.prototype.getTimeForLocation = function getTimeForLocation(lat, lon, i
     start_latitude: lat,
     start_longitude: lon
   };
-  console.log("callback",callback)
+  
   return this._uber.get({
     url: this.path + '/time',
     params: par,
