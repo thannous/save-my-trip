@@ -161,7 +161,7 @@ function parseImageUrls(hotel) {
   // Gets URL in hotel object.
   let imageUrls = hotel.image_urls;
 
-  // Replaces all special character of URLs string and extract and build a correct URL.
+  // Replaces all special characters of URLs and extract and build a correct URL.
   let imageUrl = imageUrls[0].replace(/:/g, "").replace(/{/g, "").replace(/}/g, "");
   let lastPosition = imageUrl.indexOf("[");
 
