@@ -125,9 +125,13 @@ router.route('/direction/getdirection').get((request, response) => {
     console.log("COMPLETED");
   });
 
+  // Gets request parameters and puts them into result object.
   let origin = request.query.origin;
   let destination = request.query.destination;
-  google.direction.getDirection(origin, destination, {}, getPromise);
+  let mode = request.query.mode;
+  let parameters = {origin: origin, destination: destination, mode: mode};
+
+  google.direction.getDirection(parameters, getPromise);
 });
 
 /**
