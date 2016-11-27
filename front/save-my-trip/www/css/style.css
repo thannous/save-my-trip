@@ -550,6 +550,82 @@ h1 {
   margin: 0 0 0px 0;
   font-size: 18px;
 }
+@-webkit-keyframes swing
+{
+  15%
+  {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  30%
+  {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  50%
+  {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+  }
+  65%
+  {
+    -webkit-transform: translateX(-6px);
+    transform: translateX(-6px);
+  }
+  80%
+  {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  100%
+  {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes swing
+{
+  15%
+  {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  30%
+  {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  50%
+  {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+  }
+  65%
+  {
+    -webkit-transform: translateX(-6px);
+    transform: translateX(-6px);
+  }
+  80%
+  {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  100%
+  {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+.inSearch{
+  -webkit-animation: swing 10s ease;
+  animation: swing 10s ease;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 2;
+}
+
+.hero>.content>.avatar.isTalking{
+  border-width: 5px;
+}
 
 
 .container img {
