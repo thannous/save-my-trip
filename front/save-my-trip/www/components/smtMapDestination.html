@@ -1,27 +1,13 @@
 <ion-content scroll="false">
-  <h1>MAP</h1>
-  <div class="list transport">
-
-    <a class="item item-avatar item-icon-left">
-      <!--<i class="icon ion-{{ $ctrl.iconSrv[entityDestination.type][ $ctrl.userSrv.transportChoice.type ] }}"></i>-->
-      <img src="venkman.jpg" smt-error-src="img/no-image.png">
-      <span class="transport-label">{{ $ctrl.entityDestination.label }}</span> ~ {{ $ctrl.entityDestination.time }}
-      minutes
-      <span class="item-note">
-        {{ $ctrl.entityDestination.price}} €
-        </span>
-    </a>
-  </div>
   <ion-content data-tap-disabled="true">
     <div ng-if="center"
          style="height: 50%;border: 2px solid blue;top: 150px;position: relative; margin-left: 10px; margin-right: 10px;">
       <leaflet defaults="$ctrl.map.defaults"
                center="center"
                markers="$ctrl.map.markers"
+               paths="$ctrl.paths"
                style="height:100%">
       </leaflet>
     </div>
   </ion-content>
-
-
 </ion-content>

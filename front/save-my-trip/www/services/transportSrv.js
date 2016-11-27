@@ -6,21 +6,13 @@ angular.module('saveMyTrip')
     transportSrv.transports = [];
 
     transportSrv.get = function (options) {
-      return $http.get('http://localhost:8080/api/google/direction/getdirection', { data: options});
-      // perform some asynchronous operation, resolve or reject the promise when appropriate.
-      // return $q(function (resolve, reject) {
-      //   setTimeout(function () {
-      //     console.log('transportSrv get');
-      //     var data = {
-      //       data: [
-      //         {type: 'vtc', price: 1000, time: 35},
-      //         {type: 'taxi', price: 30, time: 300},
-      //         {type: 'bus', price: 1605, time: 30},
-      //       ],
-      //     };
-      //     resolve(data);
-      //   }, 1000);
-      // });
+      return $http.get('http://localhost:8080/api/google/direction/getdirection', { params: options});
+
+    };
+
+    transportSrv.getVtc = function (options) {
+      return $http.get('http://localhost:8080/api/uber/price', { params: options});
+
     };
 
     return transportSrv;

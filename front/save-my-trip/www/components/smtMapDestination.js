@@ -6,6 +6,10 @@ angular.module('saveMyTrip')
       $ctrl = this;
 
       var b = [];
+      console.log('--------------');
+      console.log($ctrl.markers);
+      console.log($ctrl.paths);
+      console.log($ctrl.entityDestination);
       for ( var marker in $ctrl.markers){
         b.push($ctrl.markers[marker].lat, $ctrl.markers[marker].lng);
       }
@@ -29,9 +33,9 @@ angular.module('saveMyTrip')
       };
 
     },
-    bindinds: {
-      markers: '<',
-      paths: '<',
-      entityDestination: '<',
+    'bindings': {
+      'markers': '<',
+      'paths': '<',
+      'entityDestination': '<',
     },
   });

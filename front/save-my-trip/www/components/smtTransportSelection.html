@@ -27,8 +27,8 @@
         </span>
       </a>
     </div>
-
-    {{$ctrl.transportSrv.transports}}
+{{$ctrl.markers}}
+    <smt-map-destination ng-if="$ctrl.hasTransport()" markers="$ctrl.markers" paths="$ctrl.paths" entity-destination=""></smt-map-destination>
 
   </ion-content>
 </ion-view>
