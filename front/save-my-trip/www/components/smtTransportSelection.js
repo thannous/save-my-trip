@@ -45,18 +45,12 @@ angular.module('saveMyTrip')
       $ctrl.getVtc = function (options) {
         transportSrv.getVtc(options)
           .then(function (res) {
-            // var t = {
-            //   type: 'vtc',
-            //   time: Math.floor(res.data.routes[0].legs[0].duration.value / 60),
-            //   price: Math.floor(Math.random()*90+10),
-            //   path: polyline.decode(res.data.routes[0].overview_polyline.points),
-            // };
-            transportSrv.transports['vtc'] = $ctrl.getTransportIndex('vtc').price = '10000';
-            // transportSrv.transports.push(t);
+             transportSrv.transports['vtc'] = $ctrl.getTransportIndex('vtc').price = 10000;
+          })
+          .catch(function(){
+            transportSrv.transports['vtc'] = $ctrl.getTransportIndex('vtc').price = 'Pas disponible';
           });
       };
-
-      //polyline.decode('_p~iF~ps|U_ulLnnqC_mqNvxq`@');
 
       $ctrl.selectTransport = function (transport) {
         userSrv.transportChoice = transport;
@@ -107,7 +101,6 @@ angular.module('saveMyTrip')
         end_latitude: $ctrl.markers.destination.lat,
         end_longitude: $ctrl.markers.destination.lng,
       };
-
 
       //pour uber on calcul l'itineraire pour un taxi mais on calcul le prix apres
       $ctrl.getTransports('vtc', drivingOptions);

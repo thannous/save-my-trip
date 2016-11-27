@@ -3,15 +3,15 @@
     <h1>transport</h1>
     <div ng-if="$ctrl.hasTransport()" class="list transport">
 
-      <a class="item item-icon-left" ng-click="$ctrl.selectTransport($ctrl.getTransportIndex('bus'))">
+      <a class="item item-icon-left" ng-if="$ctrl.getTransportIndex('bus')" ng-click="$ctrl.selectTransport($ctrl.getTransportIndex('bus'))">
         <i class="icon ion-{{ $ctrl.iconSrv.transport.bus }}"></i>
-        <span class="transport-label">{{ $ctrl.getTransportIndex('bus').type }} </span> ~ {{$ctrl.getTransportIndex('bus').time }} minutes
+        <span class="transport-label"> Transport en commun </span> ~ {{$ctrl.getTransportIndex('bus').time }} minutes
         <span class="item-note">
         {{ $ctrl.getTransportIndex('bus').price}} €
         </span>
       </a>
 
-      <a class="item item-icon-left" ng-click="$ctrl.selectTransport($ctrl.getTransportIndex('taxi'))">
+      <a class="item item-icon-left" ng-if="$ctrl.getTransportIndex('taxi')" ng-click="$ctrl.selectTransport($ctrl.getTransportIndex('taxi'))">
         <i class="icon ion-{{ $ctrl.iconSrv.transport.taxi }}"></i>
         <span class="transport-label">{{ $ctrl.getTransportIndex('taxi').type }}</span> ~ {{$ctrl.getTransportIndex('taxi').time }} minutes
         <span class="item-note">
@@ -19,7 +19,7 @@
         </span>
       </a>
 
-      <a class="item item-icon-left" ng-click="$ctrl.selectTransport($ctrl.getTransportIndex('vtc'))">
+      <a class="item item-icon-left" ng-if="$ctrl.getTransportIndex('vtc')" ng-click="$ctrl.selectTransport($ctrl.getTransportIndex('vtc'))">
         <i class="icon ion-{{ $ctrl.iconSrv.transport.vtc }}"></i>
         <span class="transport-label">{{$ctrl.getTransportIndex('vtc').type }}</span> ~ {{$ctrl.getTransportIndex('vtc').time }} minutes
         <span class="item-note">
@@ -27,7 +27,7 @@
         </span>
       </a>
     </div>
-{{$ctrl.markers}}
+
     <smt-map-destination ng-if="$ctrl.hasTransport()" markers="$ctrl.markers" paths="$ctrl.paths" entity-destination=""></smt-map-destination>
 
   </ion-content>

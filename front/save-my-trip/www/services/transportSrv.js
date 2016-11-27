@@ -12,7 +12,6 @@ angular.module('saveMyTrip')
 
     transportSrv.getVtc = function (options) {
       return $http.get('http://localhost:8080/api/uber/price', { params: options});
-
     };
 
     return transportSrv;
