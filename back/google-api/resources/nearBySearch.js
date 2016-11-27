@@ -7,10 +7,10 @@ function NearBySearch(google) {
 
 module.exports = NearBySearch;
 
-NearBySearch.prototype.getPlace = function (placeTypes, parameters, callback) {
+NearBySearch.prototype.getPlace = function (placeTypes, location, parameters, callback) {
   console.log(this._google);
   parameters.key = this._google.defaults.apiKey;
-  parameters.location = parameters.location || "48.995417, 2.533997";
+  parameters.location = location || "48.995417, 2.533997";
   parameters.types = placeTypes;
   if (typeof parameters.location === "object") parameters.location = parameters.location.toString();
   if (!parameters.rankby) parameters.radius = parameters.radius || 5000;
