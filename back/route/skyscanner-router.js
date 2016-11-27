@@ -38,13 +38,14 @@ router.route('/hotels/livePrices').get((request, response) => {
   }, function () {
     console.log("COMPLETED");
   });
+
   skyscanner.hotels.livePrices.session({
     market: "FR",
     currency: "EUR",
     locale: "fr-FR",
-    entityId: "48.853,2.35-latlong",
-    checkindate: "2016-11-27",
-    checkoutdate: "2016-11-29",
+    entityId: request.query.entityId,
+    checkindate: request.query.checkindate,
+    checkoutdate: request.query.checkoutdate,
     guests: 1,
     rooms: 1
   }, getPromise);
