@@ -1,12 +1,12 @@
 angular.module('saveMyTrip')
 
-.factory('restaurantSrv', function($http, $q) {
+.factory('restaurantSrv', function($http, $q, serverIp) {
   var restaurantSrv = {};
 
   restaurantSrv.restaurants = undefined;
 
   restaurantSrv.get = function(options) {
-    //return $http.get('myPath', { params: options});
+    //return $http.get(serverIp+'myPath', { params: options});
     // perform some asynchronous operation, resolve or reject the promise when appropriate.
     return $q(function(resolve, reject) {
       setTimeout(function() {

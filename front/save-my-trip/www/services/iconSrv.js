@@ -1,6 +1,6 @@
 angular.module('saveMyTrip')
 
-  .factory('iconSrv', function ($http, $q) {
+  .factory('iconSrv', function () {
     var iconSrv = {};
 
     iconSrv.transport = {

@@ -1,12 +1,12 @@
 angular.module('saveMyTrip')
 
-.factory('hotelSrv', function($http, $q) {
+.factory('hotelSrv', function($http, $q, serverIp) {
   var hotelSrv = {};
 
   hotelSrv.hotels = undefined;
 
   hotelSrv.get = function(options) {
-    return $http.get('http://localhost:8080/api/skyscanner/hotels/livePrices', { params: options});
+    return $http.get(serverIp+'api/skyscanner/hotels/livePrices', { params: options});
     // perform some asynchronous operation, resolve or reject the promise when appropriate.
     // return $q(function(resolve, reject) {
     //   setTimeout(function() {

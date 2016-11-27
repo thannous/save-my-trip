@@ -1,12 +1,12 @@
 angular.module('saveMyTrip')
 
-  .factory('transportSrv', function ($http, $q) {
+  .factory('transportSrv', function ($http, $q, serverIp) {
     var transportSrv = {};
 
     transportSrv.transports = [];
 
     transportSrv.get = function (options) {
-      return $http.get('http://localhost:8080/api/google/direction/getdirection', { params: options});
+      return $http.get(serverIp+'/api/google/direction/getdirection', { params: options});
 
     };
 
