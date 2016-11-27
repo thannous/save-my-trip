@@ -124,8 +124,8 @@ angular.module('starter.controllers', [])
     };
   })
 
-
   .controller('InfoCtrl', function ($scope, $stateParams, $timeout, $state, problemSrv, ionicMaterialMotion, ionicMaterialInk, recastSrv, flySrv) {
+
     $ctrl = this;
 
     $scope.title = '';
@@ -146,22 +146,137 @@ angular.module('starter.controllers', [])
       $state.go('app.walletValidation');
     };
   })
-  .controller('DialogueCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, recastSrv, flySrv) {
+  .controller('DialogueCtrl', function($scope, $stateParams, $timeout, $interval,ionicMaterialMotion, ionicMaterialInk, recastSrv, flySrv) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    $scope.isTalking = true;
+    $scope.inSearch= true;
+    $scope.listeTransportEntity = [
+      {
+        type: 'Autocar',
+        duration: '3 h 10',
+        price: 'Prise en charge',
+        icon: 'ion-android-bus',
+        color: 'bg-color-blue'
+      },
+      {
+        type: 'Covoiturage',
+        duration: '3 h 10',
+        price: '8.60',
+        icon: 'carpool',
+        color: 'bg-color-white'
+      },
+      {
+        type: 'Voiture de location',
+        duration: '3 h 10',
+        price: '75',
+        icon: 'ion-android-car',
+        color: 'bg-color-bluegray'
+      }];
 
     var options = {text: 'salut'};
     recastSrv.post(options)
-      .then(function (res) {
-        console.log('recast result');
-        console.log(res);
-        $scope.bot = res.data.response.action.reply;
-      });
 
+      .then(function(res) {
+
+        $scope.speakBot(res.data.response.action.reply);
+        $scope.inSearch = false;
+        $scope.isTalking = false;
+        //$scope.inSearch = false;
+        //
+      });
+    $scope.speakBot = function(text){
+
+      $scope.bot = text;
+
+    };
+    var final_transcript = '';
+    $scope.speechRecognition = function(){
+      var recognition = new webkitSpeechRecognition();
+      recognition.lang = "fr-FR";
+      recognition.onresult = function(event) {
+        $scope.inSearch= true;
+        console.log(event)
+        var interim_transcript = '';
+        var final_transcript = ''
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            final_transcript += event.results[i][0].transcript;
+          } else {
+            interim_transcript += event.results[i][0].transcript;
+          }
+        }
+        final_transcript = final_transcript;
+        var options = {text: final_transcript};
+        console.log("final_transcript", final_transcript);
+        $scope.final = linebreak(final_transcript);
+        $scope.interim = linebreak(interim_transcript);
+
+        recastSrv.post(options)
+          .then(function (resRecast) {
+            $scope.inSearch = false;
+            $scope.bot = resRecast.data.response.action.reply;
+            $scope.listeEntity = true;
+            $scope.listeTransportEntity = [
+              {
+                type: 'Autocar',
+                duration: '3 h 10',
+                price: 'Prise en charge',
+                icon: 'ion-android-bus',
+                color: 'bg-color-blue'
+              },
+              {
+                type: 'Covoiturage',
+                duration: '3 h 10',
+                price: '8.60',
+                icon: 'carpool',
+                color: 'bg-color-white'
+              },
+              {
+                type: 'Voiture de location',
+                duration: '3 h 10',
+                price: '75',
+                icon: 'ion-android-car',
+                color: 'bg-color-bluegray'
+              }];
+            var transport = resRecast.data.response.memory.transport.value;
+            var action = resRecast.data.response.action.slug;
+
+            console.log(transport);
+            if(action == 'transport' && transport){
+              if(transport === 'transport en commun' || transport === 'commun' || transport === 'transport'  ){
+                $scope.getdetail(
+                  {    type: 'transport en commun',
+                  duration: '10',
+                  price: '4',
+                  icon: 'ion-android-bus',
+                  color: 'bg-color-blue'},
+                  false);
+              }else{
+                var indexEntity = $scope.listeTransportEntity.findIndex(function (res) {
+                  return res.type.toLowerCase() === transport;
+                });
+                console.log(indexEntity);
+                $scope.getdetail($scope.listeTransportEntity[indexEntity], true);
+              }
+
+            }else{
+
+            }
+          })
+      };
+      recognition.start();
+    }
+
+    var two_line = /\n\n/g;
+    var one_line = /\n/g;
+    function linebreak(s) {
+      return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+    }
 
     $scope.validateFly = function () {
       $state.go('app.walletValidation');
@@ -171,11 +286,11 @@ angular.module('starter.controllers', [])
 
       options = {text: 'oui'};
       console.log(options);
-
+      $scope.inSearch= true;
       recastSrv.post(options)
         .then(function (resRecast) {
-          console.log('recast result');
-          $scope.bot = "2 sec je vais voir ça ...";
+          $scope.inSearch = false;
+          $scope.bot =   resRecast.data.response.action.reply;
           $scope.listeEntity = true;
           // $scope.listeTransportEntity = [{
           //   type: 'Autocar',
@@ -256,37 +371,52 @@ angular.module('starter.controllers', [])
     };
 
     $scope.yes = function (entity) {
-      entity.type = 'Covoiturage1';
-      $scope.getdetail(entity, true);
+      if(entity.type == 'Covoiturage'){
+        entity.type = 'Covoiturage1';
+        $scope.getdetail(entity, true);
+      }else{
+        $scope.bot = "Veuillez signer la decharge";
+        entity.type = 'Decharge';
+      }
+
     };
 
-    $scope.no = function () {
 
+    $scope.no = function (entity){
+      if(entity.type === 'Covoiturage'){
+
+        $scope.getdetail(entity, true);
+        entity.type = 'Covoiturage2';
+        $scope.listeEntity = {
+
+
+        }
+      }
     };
 
     $scope.noRecast = function () {
 
     };
-    $scope.getdetail = function (data, step) {
+    $scope.getdetail = function (data, step){
 
-      if (step) {
-        if (data.duration) {
-          if (data.type === "Covoiturage") {
-            $scope.bot = " Préciser votre covoiturage: " + data.type + "?";
-          } else {
-            $scope.bot = " Choisir le transport : " + data.type + "?";
+      if(step){
+        if(data.duration){
+          if(data.type === "Covoiturage1" ){
+            $scope.bot = " Définir votre covoiturage";
+          }else{
+            $scope.bot = " Voici les details de votre "+ data.type + "";
+
           }
 
         } else {
           $scope.bot = " Je confirme le vol Airfrance : AF" + data.flyNumber + "?";
         }
-
-      } else {
-        if (data.duration) {
-          if (data.type === "Covoiturage") {
-            $scope.bot = " Vous proposez ou cherchez un : " + data.type + "?";
-          } else {
-            $scope.bot = " Choisir le transport : " + data.type + "?";
+      }else{
+        if(data.duration){
+          if(data.type === "Covoiturage" ){
+            $scope.bot = "Proposez ou cherchez un covoiturage";
+          }else{
+            $scope.bot = " Voici les details de votre "+ data.type + "";
           }
 
         } else {
@@ -312,4 +442,8 @@ angular.module('starter.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
+
+    function capitalize(s) {
+      return s.replace(first_char, function(m) { return m.toUpperCase(); });
+    }
   });
