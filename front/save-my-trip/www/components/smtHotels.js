@@ -26,7 +26,7 @@ angular.module('saveMyTrip')
           market: 'FR',
           currency: 'EUR',
           locale: 'fr-FR',
-          entityId: userSrv.position.lat + '' + userSrv.position.lng + '-latlong',
+          entityId: userSrv.position.lat + ',' + userSrv.position.lng + '-latlong',
           checkindate: moment().format('YYYY-MM-DD'),
           checkoutdate: moment().add('days', 2).format('YYYY-MM-DD'),
           guests: 1,

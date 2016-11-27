@@ -13,6 +13,9 @@ angular.module('saveMyTrip')
       $ctrl.confirmRestaurant = function () {
         $ctrl.showRestaurantQuestion = false;
         $ctrl.showRestaurants = true;
+        $ctrl.options = {
+          location: userSrv.position.lat + ', ' + userSrv.position.lng
+        };
         $ctrl.getRestaurants($ctrl.options);
       };
 
@@ -25,14 +28,14 @@ angular.module('saveMyTrip')
 
       $ctrl.getRestaurantDetails = function(index){
 
-      }
+      };
 
       $ctrl.cancelRestaurant = function () {
         $state.go('app.activities');
 
       };
 
-      $ctrl.options = {}
+      $ctrl.options = {};
       $ctrl.searchRestaurants = function (options) {
 
       }
