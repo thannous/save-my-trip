@@ -46,10 +46,10 @@ router.route('/price').get((request, response) => {
   }, function () {
     console.log("COMPLETED");
   });
-  let startlat = "48.995417";
-  let startlng = "2.533997";
-  let endlat = "48.975919";
-  let endlng = "2.500974";
+  let startlat = request.query.start_latitude;
+  let startlng = request.query.start_longitude;
+  let endlat = request.query.end_latitude;
+  let endlng = request.query.end_longitude;
   uber.estimates.getPriceForRoute(startlat, startlng, endlat, endlng, getPromise);
 });
 
