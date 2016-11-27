@@ -6,8 +6,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('saveMyTrip', ['ionic', 'ionic-material', 'ionMdInput','starter.controllers', 'ngCordova', 'leaflet-directive']);
 angular.module('saveMyTrip')
-  // .value('serverIp', 'http://172.16.20.30:8080/')
-   .value('serverIp', 'http://localhost:8080/')
+  .value('serverIp', 'http://172.16.20.30:8080/')
+  //  .value('serverIp', 'http://localhost:8080/')
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
