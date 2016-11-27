@@ -9,6 +9,10 @@ angular.module('saveMyTrip')
     userSrv.hotelChoice = undefined;
     userSrv.transportChoice = undefined;
     userSrv.restaurantChoice = undefined;
+    userSrv.position = {
+      lat: undefined,
+      lng: undefined,
+    };
 
     userSrv.init = function () {
       userSrv.initMoney = 350;

@@ -11,8 +11,8 @@ angular.module('saveMyTrip')
         return Math.floor((networkData / 60 ));
       };
 
-      $ctrl.chooseRestaurant = function (){
-        $state.go('app.hotels');
+      $ctrl.goDialogue = function (){
+        $state.go('app.dialogue');
       };
     },
   });

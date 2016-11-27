@@ -8,12 +8,12 @@ angular.module('saveMyTrip')
       $ctrl.planes = flySrv.planes = [];
       var options = {};
 
-      flySrv.get(options)
-      .then(function(res){
-        console.log('flySrv result');
-        console.log(JSON.stringify(res));
-        $ctrl.planes = flySrv.planes =  res.data;
-      });
+      // flySrv.get(options)
+      // .then(function(res){
+      //   console.log('flySrv result');
+      //   console.log(JSON.stringify(res));
+      //   $ctrl.planes = flySrv.planes =  res.data;
+      // });
 
       $ctrl.getPlaneDetails = function ( $index){
 

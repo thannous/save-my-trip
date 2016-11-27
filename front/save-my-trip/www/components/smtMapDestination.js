@@ -1,7 +1,7 @@
 angular.module('saveMyTrip')
   .component('smtMapDestination', {
     'templateUrl': 'components/smtMapDestination.html',
-    'controller': function ($scope, $state, $cordovaGeolocation, LocationsService, iconSrv, leafletBoundsHelpers) {
+    'controller': function ($scope, $state, $cordovaGeolocation, LocationsService, iconSrv, leafletBoundsHelpers, userSrv) {
 
       $ctrl = this;
 
@@ -17,8 +17,8 @@ angular.module('saveMyTrip')
 
       $ctrl.iconSrv = iconSrv;
       $scope.center = {
-        lat: 42.1,
-        lng: 2.0,
+        lat: userSrv.position.lat,
+        lng: userSrv.position.lng,
         zoom: 15
       };
 

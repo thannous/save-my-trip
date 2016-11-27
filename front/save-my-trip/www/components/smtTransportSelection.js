@@ -12,8 +12,8 @@ angular.module('saveMyTrip')
             iconSize: [25, 41],
             iconAnchor: [12, 41],
           },
-          lat: 43.446643,
-          lng: 5.222023,
+          lat: userSrv.position.lat,
+          lng: userSrv.position.lng,
         },
         destination: {
           icon: {

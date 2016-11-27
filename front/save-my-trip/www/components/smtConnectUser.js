@@ -12,8 +12,6 @@ angular.module('saveMyTrip')
         var permissions = cordova.plugins.permissions;
         permissions.hasPermission(permissions.CAMERA, checkPermissionCallback, null);
 
-
-
         function checkPermissionCallback(status) {
           if (!status.hasPermission) {
             var errorCallback = function() {
@@ -59,6 +57,9 @@ angular.module('saveMyTrip')
         userSrv.get(reservationNumBer)
         .then(function(res){
           userSrv.info = res.data;
+          userSrv.position.lat = 42.1;
+          userSrv.position.lng = 2.0;
+
           console.log('userSrv.info');
           console.log( JSON.stringify(userSrv.info));
           $state.go('problemInfo2');
