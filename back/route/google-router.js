@@ -37,7 +37,7 @@ router.route('/nearbysearch/hotels').get((request, response) => {
 
   // Gets all places by the given the good type.
   let placeTypes = 'lodging';
-  google.nearbysearch.getPlace(placeTypes, {}, getPromise);
+  google.nearbysearch.getPlace(placeTypes, request.query.location, {}, getPromise);
 });
 
 router.route('/nearbysearch/restaurants').get((request, response) => {
@@ -67,7 +67,7 @@ router.route('/nearbysearch/restaurants').get((request, response) => {
 
   // Gets all places by the given the good type.
   let placeTypes = 'restaurant';
-  google.nearbysearch.getPlace(placeTypes, {}, getPromise);
+  google.nearbysearch.getPlace(placeTypes, request.query.location, {}, getPromise);
 });
 
 router.route('/nearbysearch/activities').get((request, response) => {
@@ -97,7 +97,7 @@ router.route('/nearbysearch/activities').get((request, response) => {
 
   // Gets all activities by some types (Emma can't move easily).
   let placeTypes = 'casino|museum|book_store|aquarium';
-  google.nearbysearch.getPlace(placeTypes, {}, getPromise);
+  google.nearbysearch.getPlace(placeTypes, request.query.location, {}, getPromise);
 });
 
 router.route('/nearbysearch/photo').get((request, response) => {
