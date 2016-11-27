@@ -322,7 +322,7 @@ p {
   margin-top:10px;
 }
 .hero{
-  height: 400px;
+  height: 300px;
 }
 
 
@@ -352,6 +352,11 @@ h1 {
 .step1trip h1{
   color: #2c4475;
 }
+.step2trip h1{
+  color: #2c4475;
+  font-size: 30px;
+}
+
 
 .step1trip h3{
   color: #3a6175;
@@ -384,12 +389,22 @@ h1 {
   z-index: 1;
 }
 
+.timeline.timelineListeTransport:before{
+  background: transparent;
+}
+
 .timeline .timeline-thumb {
   border-radius: 500px;
   width: 50px;
   z-index: 2;
   position: absolute;
   left: 10px
+}
+.timeline.timelineListeTransport .timeline-thumb {
+  margin-top: 18px;
+}
+.timeline .timeline-thumb img{
+  margin-top: 3px;
 }
 
 .timeline .timeline-thumb.timeline-icon {
@@ -409,6 +424,21 @@ h1 {
   margin-left: 72px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 8px;
+}
+
+.timeline .timeline-item p{
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.timeline .timeline-item .row{
+  align-items: center;
+}
+
+
+.timeline .timeline-item h4{
+  margin-bottom: 10px;
+  font-size: 22px;
 }
 
 .timeline .timeline-stats {
@@ -502,4 +532,26 @@ h1 {
 
 .bg-color-green {
   background-color: #4cd964 !important;
+}
+
+.container {
+  margin-left: 70px;
+  height: 200px;
+  width: 260px;
+  text-align: center;
+}
+
+.cardDetail .item h4 {
+  margin: 0 0 0px 0;
+  font-size: 15px;
+}
+
+.cardDetail .item h2 {
+  margin: 0 0 0px 0;
+  font-size: 18px;
+}
+
+
+.container img {
+  vertical-align: middle;
 }

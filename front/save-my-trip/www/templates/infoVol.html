@@ -1,19 +1,21 @@
 <ion-view view-title="Login" class="step1trip" align-title="left">
-  <ion-content style="background: url(img/hotel.png) center; background-size: cover;">
-    <div class="hero no-header flat">
-      <div class="content">
+  <ion-content style=" background-size: cover;">
+    <div class="no-header flat">
+      <div class="content padding">
         <h1 class="text-center">Voici les infos sur votre vol</h1>
         <h3 class="text-center">AF 6006</h3>
-        <h3>{{ title }}</h3>
         <h3>{{ message }}</h3>
+        <div class="container">
+          <img ng-if="hasExplanation" width="200px" src="img/picto_infos_intemperies_vols.png">
+
+        </div>
+        <h3>{{ title }}</h3>
+
 
       </div>
     </div>
-    <div class="list padding row row-center">
 
-
-    </div>
-    <div class="padding ">
+    <div ng-if="hasExplanation"  class="padding ">
       <button   ng-click="goDialogue()" class="button button-full button-assertive ink">Aidez moi</button>
     </div>
   </ion-content>

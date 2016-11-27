@@ -159,14 +159,14 @@ angular.module('starter.controllers', [])
       problemSrv.get("000")
         .then(function(res){
           $scope.title = res.data.title;
-          $scope.message = res.data.message;
+          $scope.message = "";
           $scope.hasExplanation = true;
         });
     }, 3000);
 
     $scope.goDialogue = function(){
-      console.log("dialogue")
-      $state.go('app.dialogue');
+
+      $state.go('app.walletValidation');
     };
   })
   .controller('DialogueCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, recastSrv, flySrv) {
@@ -177,36 +177,147 @@ angular.module('starter.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
-    var options = {};
+    var options = {text: 'salut'};
     recastSrv.post(options)
       .then(function(res){
         console.log('recast result');
-
-        console.log(res.data.response);
-        $scope.bot =   res.data.response;
+        console.log(res);
+        $scope.bot =   res.data.response.action.reply;
       });
 
 
     $scope.validateFly = function(){
       $state.go('app.walletValidation');
     };
-    $scope.yes = function () {
-      flySrv.get(options)
-        .then(function(res){
-          console.log('flySrv result');
-          console.log(JSON.stringify(res));
-          console.log(res)
-          $scope.listeEntity = flySrv.planes =  res.data;
-          $scope.bot = "Ok, parfais voici la liste des moyens de transport, que voulez vous ?"
+    $scope.yesRecast = function (entity, hasRecast) {
+
+
+      options = {text: 'oui'};
+      console.log(options);
+
+      recastSrv.post(options)
+        .then(function (resRecast) {
+          console.log('recast result');
+          $scope.bot = "2 sec je vais voir ça ...";
+          $scope.listeEntity = true;
+          $scope.listeTransportEntity = [{
+            type: 'Autocar',
+            duration: '3 h 10',
+            price: 'Prise en charge',
+            icon: 'ion-android-bus',
+            color: 'bg-color-blue'
+          },
+            {
+              type: 'Covoiturage',
+              duration: '3 h 10',
+              price: '8.60',
+              icon: 'carpool',
+              color: 'bg-color-white'
+            },
+            {
+              type: 'Voiture de location',
+              duration: '3 h 10',
+              price: '75',
+              icon: 'ion-android-car',
+              color: 'bg-color-bluegray'
+            }];
+          const t2 = [
+            {
+              type: 'Autocar',
+              duration: '3 h 10',
+              price: 'Prise en charge',
+
+            },
+            {
+              type: 'Covoiturage',
+              duration: '3 h 10',
+              price: '8.60',
+              icon: 'carpool',
+              color: '#000'
+            },
+            {
+              type: 'Voiture de location',
+              duration: '3 h 10',
+              price: '75',
+              icon: 'ion-android-car'
+            },
+            {
+              type: 'Transport Commun',
+              duration: '',
+              price: ''
+            },
+            {
+              type: 'Vol',
+              duration: '3 h 10',
+              price: 'Prise en charge'
+            }];
+          /*       $timeout(function(){
+
+
+
+           flySrv.get(options)
+           .then(function(res){
+
+           console.log('flySrv result');
+           console.log(JSON.stringify(res));
+           res.data.map(function(res){
+           if(res) {
+           res.type = 'Vol',
+           res.icon = 'ion-android-plane',
+           res.color = 'bg-color-red'
+           }
+           })
+           $scope.listeEntity = flySrv.planes =  res.data;
+           $scope.bot =   resRecast.data.response.action.reply;
+           });
+           }, 3000);*/
+
         });
+
+    };
+
+    $scope.yes = function (entity) {
+      entity.type = 'Covoiturage1';
+      $scope.getdetail(entity, true);
     };
 
     $scope.no = function (){
 
     };
-    $scope.getdetail = function (data){
+
+    $scope.noRecast = function (){
+
+    };
+    $scope.getdetail = function (data, step){
+
+      if(step){
+        if(data.duration){
+          if(data.type === "Covoiturage" ){
+            $scope.bot = " Préciser votre covoiturage: "+ data.type + "?";
+          }else{
+            $scope.bot = " Choisir le transport : "+ data.type + "?";
+          }
+
+        }else{
+          $scope.bot = " Je confirme le vol Airfrance : AF"+ data.flyNumber + "?";
+        }
+
+      }else{
+        if(data.duration){
+          if(data.type === "Covoiturage" ){
+            $scope.bot = " Vous proposez ou cherchez un : "+ data.type + "?";
+          }else{
+            $scope.bot = " Choisir le transport : "+ data.type + "?";
+          }
+
+        }else{
+          $scope.bot = " Je confirme le vol Airfrance : AF"+ data.flyNumber + "?";
+        }
+      }
+
+
       $scope.detailEntity = data
-    }
+    };
     // Set Motion
     $timeout(function() {
       ionicMaterialMotion.slideUp({

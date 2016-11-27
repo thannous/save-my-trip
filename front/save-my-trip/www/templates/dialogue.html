@@ -5,33 +5,28 @@
                 <div class="avatar" style="background-image: url('img/lapin.jpg');"></div>
                 <h3 ng-show="!bot"><a class="light">mmmh </a></h3>
                 <h4 class="padding-horizontal">{{ bot }}</h4>
-              <div class="row">
-                <div class="row">
+              <div class="row" ng-show="!listeEntity">
 
-                  <div class="col"></div>
+                  <div class="col">
+                    <button ng-click="yesRecast()" class="button button-full button-assertive ink">
+                    Oui
+                    </button>
+                  </div>
                   <div class="col col-50"  >
-                    <div ng-if="!listeEntity.data">
-                      <button ng-click="yes()" class="button button-full button-assertive ink">
-                        Oui
-                      </button>
-                      <button ng-click="no()" class="button button-full button-assertive ink">
+                      <button ng-click="noRecast()" class="button button-full button-assertive ink">
                         Non
                       </button>
-                    </div>
                   </div>
-                  <div class="col"></div>
-                </div>
               </div>
             </div>
-
         </div>
-      <ul class="timeline" >
+      <ul class="timeline" ng-if="!detailEntity">
         <li ng-click="getdetail(entity)" ng-repeat="entity in listeEntity">
           <div class="timeline-thumb bg-color-red  timeline-icon">
             <i class="ion-android-plane"></i>
           </div>
           <div class="timeline-item">
-            <h4>Depart : {{ entity.departure.location}} à {{ entity.departure.hours}} h </h4>
+            <h4>{{ entity.type }} : {{ entity.departure.location}} à {{ entity.departure.hours}} h </h4>
             <p>Arrivé à {{ entity.arrival.location}} - {{ entity.arrival.hours}}</p>
             <div class="timeline-stats">
               <i class="ion-android-plane"></i>N° {{ entity.flyNumber}}
@@ -39,19 +34,94 @@
           </div>
 
       </ul>
-      <div ng-if="detail">
-        <div class="card">
+      <ul class="timeline timelineListeTransport" ng-if="!detailEntity">
+        <li ng-click="getdetail(entity)" ng-repeat="entity in listeTransportEntity">
+          <div class="timeline-thumb {{ entity.color }} timeline-icon">
+            <i ng-if="entity.icon !== 'carpool'" class="{{ entity.icon }}"></i>
+
+            <img ng-if="entity.icon === 'carpool'" src="https://maxcdn.icons8.com/iOS7/PNG/25/Transport/carpool_filled-25.png" title="Carpool Filled" width="25">
+          </div>
+          <div class="timeline-item">
+            <div class="row">
+              <div class="col-66">
+                <h4>{{ entity.type }}</h4>
+                <p>Arrivé à {{ entity.duration}} </p>
+              </div>
+              <div class="timeline-stats align-center">
+               {{ entity.price}} <i class="ion-social-euro" ng-if="entity.price > 0"></i>
+              </div>
+            </div>
+
+
+          </div>
+
+      </ul>
+
+      <div ng-if="detailEntity">
+        <div class="card" ng-if="detailEntity.departure">
           <div class="item item-divider">
-            I'm a Header in a Card!
+            <h2>{{ detailEntity.departure.location}} - {{ detailEntity.arrival.location}}  </h2>
           </div>
           <div class="item item-text-wrap">
-            This is a basic Card with some text.
+            <h4>Depart : {{ detailEntity.departure.location}} à {{ detailEntity.departure.hours}} h </h4>
+            <h4>Arrivé à {{ detailEntity.arrival.location}} - {{ detailEntity.arrival.hours}}</h4>
           </div>
+          <div class="item item-divider" style="height: auto;">
+
+            <div class="row">
+
+              <div class="col">
+                <button ng-click="yes()" class="button button-full button-assertive ink">
+                  Oui
+                </button>
+              </div>
+              <div class="col col-50"  >
+                <button ng-click="no()" class="button button-full button-assertive ink">
+                  Non
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card cardDetail" ng-if="detailEntity.duration">
           <div class="item item-divider">
-            I'm a Footer in a Card!
+            <h2 ng-if="detailEntity.type === 'Autocar'">Merci de nous retrouver au comptoire Air france</h2>
+            <h2 ng-if="detailEntity.type === 'Autocar'">RC porte 16</h2>
+            <h2 ng-if="detailEntity.type === 'Covoiturage'">Partager les frais de transport avec</h2>
+            <h2 ng-if="detailEntity.type === 'Covoiturage'">d'autres voyageurs</h2>
+            <h2 ng-if="detailEntity.type === 'Covoiturage1'">De : Aéroport Marseille</h2>
+            <h2 ng-if="detailEntity.type === 'Covoiturage1'">A : Musée masséna, Nice</h2>
+          </div>
+          <div class="item item-text-wrap">
+            <div class="item item-text-wrap">
+              <h4>Temps du trajet : {{ detailEntity.duration}} </h4>
+              <h4>Prix :{{ detailEntity.price}} <i class="ion-social-euro" ng-if="entity.price > 0"></i> </h4>
+              <div>
+                <h4>Ajout une ville etape : <i class="ion-plus-circled"></i> </h4>
+                <h4>Nombre de place : <i class="ion-arrow-left-b"></i> 1  <i class="ion-arrow-right-b"></i> </h4>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col">
+              <button ng-click="yes(detailEntity)" class="button button-full button-assertive ink">
+                <span ng-if="detailEntity.type === 'Autocar'">Plan aeroport</span>
+                <span ng-if="detailEntity.type === 'Covoiturage'">Proposer</span>
+                <span ng-if="detailEntity.type === 'Covoiturage1'">Valider</span>
+              </button>
+            </div>
+            <div class="col col-50"  >
+              <button ng-click="no(detailEntity)" class="button button-full button-assertive ink">
+                <span ng-if="detailEntity.type === 'Autocar'">Annuler</span>
+                <span ng-if="detailEntity.type === 'Covoiturage'">Rechercher</span>
+                <span ng-if="detailEntity.type === 'Covoiturage1'">Annuler</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
 
     </ion-content>
 </ion-view>

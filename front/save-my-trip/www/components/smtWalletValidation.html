@@ -1,20 +1,20 @@
-<ion-view view-title="Wallet">
-  <ion-content>
+<ion-view view-title="Wallet" class="step2trip">
+  <ion-content style=" center; background-size: cover;">
+    <h2> Air france wallet</h2>
+    <h2 class="text-center"> Air france wallet</h2>
+    <h4 class="text-center"> Vous disposer maintenant d'un porte monnaie de :</h4>
+    <div style="text-align: center;">
+      <i class="icon ion-cash" style="font-size: 120px; color: #2c4475"></i>
+    </div>
 
-    <h1>vous avez choisi votre vol</h1>
 
-
-    <h1>vous disposez dès à present d'un porte monnaie de</h1>
-
-    <h1>{{ $ctrl.userSrv.initMoney }}€</h1>
-
-
-    <h1>et de {{ $ctrl.computeNetworkDataMinute($ctrl.userSrv.networkData) }} heures d'appel</h1>
-
+        <h1 style="font-size: 60px" class="text-center">{{ $ctrl.userSrv.initMoney }}€</h1>
+    <div style="text-align: center;">
+      <i class="icon ion-wifi" style="font-size: 120px;color: #2c4475"></i>
+    </div>
+    <h1 class="text-center" style="color: #2c4475">et de {{ $ctrl.computeNetworkDataMinute($ctrl.userSrv.networkData) }} heures d'appel</h1>
+    <div class="padding ">
+      <button   ng-click="goDialogue()" class="button button-full button-assertive ink">Merci !</button>
+    </div>
   </ion-content>
 </ion-view>
-<div class="bar bar-footer">
-  <button class="button button-block button-positive"
-          ng-click="$ctrl.chooseRestaurant()">DÉPENSER
-  </button>
-</div>

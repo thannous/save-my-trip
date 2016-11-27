@@ -20,17 +20,16 @@ Recastai.prototype.textConverse = function (text, promise) {
   let config = {
     conversationToken: this.myConversationToken,
   }
-  this.client.textConverse('salut !', config)
+  this.client.textConverse(text, config)
   .then(res => {
-    console.log(res);
     _this.myConversationToken = res.conversationToken;
     // get the location variable set at the previous call of textConverse
     let location = res.getMemory('location');
     var data = {
-      response : res.action.reply
+      response : res
     }
     promise.next(data);
-    promise.complete()
+    promise.complete();
 
     // Do your code
   }).catch(err => {
