@@ -124,9 +124,15 @@ router.route('/direction/getdirection').get((request, response) => {
   }, function () {
     console.log("COMPLETED");
   });
-  google.direction.getDirection({}, getPromise);
-});
 
+  // Gets request parameters and puts them into result object.
+  let origin = request.query.origin;
+  let destination = request.query.destination;
+  let mode = request.query.mode;
+  let parameters = {origin: origin, destination: destination, mode: mode};
+
+  google.direction.getDirection(parameters, getPromise);
+});
 
 /**
  * Allows to add a price to a places. This price is recovered from price combinations.
