@@ -15,10 +15,10 @@ angular.module('saveMyTrip')
           $ctrl.message = res.data.message;
           $ctrl.hasExplanation = true;
         });
-      }, 3000);
+      }, 2000);
 
       $ctrl.gotoNextFlySelection = function(){
-        $state.go('app.nextFly');
+        $state.go('app.walletValidation');
       };
 
     },

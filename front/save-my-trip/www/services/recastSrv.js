@@ -1,11 +1,11 @@
 angular.module('saveMyTrip')
 
-  .factory('recastSrv', function($http, $q) {
+  .factory('recastSrv', function($http, $q,serverIp) {
     var recastSrv = {};
-    
-    
+
+
     recastSrv.post = function(options) {
-      return $http.post('http://localhost:8080/api/recast/textConverse', { text: 'salut'});
+      return $http.post(serverIp + 'api/recast/textConverse', options);
     }
 
     return recastSrv;
